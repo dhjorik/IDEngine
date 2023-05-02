@@ -1,0 +1,706 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A415049C-A76F-4E50-89B8-A737B61D4155}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>IDEngine</RootNamespace>
+    <AssemblyName>IDEngine</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Documentation\Notes000\notes\README.md" />
+    <None Include="Documentation\Notes001\notes\README.md" />
+    <None Include="Documentation\Notes001\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes002\notes\README.md" />
+    <None Include="Documentation\Notes002\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes003\notes\README.md" />
+    <None Include="Documentation\Notes003\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes004\notes\README.md" />
+    <None Include="Documentation\Notes004\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes005\notes\README.md" />
+    <None Include="Documentation\Notes005\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes006\notes\README.md" />
+    <None Include="Documentation\Notes006\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes007\notes\README.md" />
+    <None Include="Documentation\Notes007\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes008\notes\README.md" />
+    <None Include="Documentation\Notes008\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes009\notes\README.md" />
+    <None Include="Documentation\Notes009\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes010\notes\README.md" />
+    <None Include="Documentation\Notes010\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes011\notes\README.md" />
+    <None Include="Documentation\Notes011\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes012\notes\README.md" />
+    <None Include="Documentation\Notes012\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes013\notes\README.md" />
+    <None Include="Documentation\Notes013\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes014\notes\README.md" />
+    <None Include="Documentation\Notes014\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes015\notes\README.md" />
+    <None Include="Documentation\Notes015\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes016\notes\README.md" />
+    <None Include="Documentation\Notes016\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes017\notes\README.md" />
+    <None Include="Documentation\Notes017\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes018\notes\README.md" />
+    <None Include="Documentation\Notes018\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes019\notes\README.md" />
+    <None Include="Documentation\Notes019\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Documentation\Notes020\notes\README.md" />
+    <None Include="Documentation\Notes020\src\DIYDoom\DIYDoom.vcxproj" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WAD\WAD.csproj">
+      <Project>{5daa515d-9cc3-497c-a0d7-45628d370b7d}</Project>
+      <Name>WAD</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Documentation\Notes001\notes\img\breakpoint.png" />
+    <Resource Include="Documentation\Notes001\notes\img\debug.png" />
+    <Resource Include="Documentation\Notes001\notes\img\newproject.PNG" />
+    <Resource Include="Documentation\Notes001\notes\img\run1.PNG" />
+    <Resource Include="Documentation\Notes001\notes\img\run2.PNG" />
+    <Resource Include="Documentation\Notes001\notes\img\slade.PNG" />
+    <Resource Include="Documentation\Notes001\notes\img\WADFormat.PNG" />
+    <Content Include="Documentation\Notes001\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes001\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes001\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes001\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes001\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes001\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes001\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes002\notes\img\debug.png" />
+    <Resource Include="Documentation\Notes002\notes\img\hex.PNG" />
+    <Resource Include="Documentation\Notes002\notes\img\linedef.PNG" />
+    <Resource Include="Documentation\Notes002\notes\img\map.PNG" />
+    <Resource Include="Documentation\Notes002\notes\img\memory.PNG" />
+    <Resource Include="Documentation\Notes002\notes\img\plot.PNG" />
+    <Resource Include="Documentation\Notes002\notes\img\plotvertex.PNG" />
+    <Resource Include="Documentation\Notes002\notes\img\vertex.PNG" />
+    <Content Include="Documentation\Notes002\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes002\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes002\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes002\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes002\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes002\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes002\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes002\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes002\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes003\notes\img\include.PNG" />
+    <Resource Include="Documentation\Notes003\notes\img\lib1.PNG" />
+    <Resource Include="Documentation\Notes003\notes\img\lib2.PNG" />
+    <Resource Include="Documentation\Notes003\notes\img\properties.PNG" />
+    <Resource Include="Documentation\Notes003\notes\img\sdlfolder.PNG" />
+    <Resource Include="Documentation\Notes003\notes\img\window.png" />
+    <Content Include="Documentation\Notes003\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes003\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes003\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes003\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes003\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes003\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes003\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes003\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes003\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes003\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes003\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes003\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes003\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes004\notes\img\cartesian.png" />
+    <Resource Include="Documentation\Notes004\notes\img\e1m1.PNG" />
+    <Resource Include="Documentation\Notes004\notes\img\e1m1_2.PNG" />
+    <Resource Include="Documentation\Notes004\notes\img\plot1.PNG" />
+    <Resource Include="Documentation\Notes004\notes\img\plot2.PNG" />
+    <Resource Include="Documentation\Notes004\notes\img\screen.png" />
+    <Content Include="Documentation\Notes004\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes004\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes004\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes004\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes004\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes004\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes004\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes004\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes004\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes004\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes004\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes004\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes004\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes005\notes\img\player.PNG" />
+    <Resource Include="Documentation\Notes005\notes\img\things.PNG" />
+    <Content Include="Documentation\Notes005\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes005\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes005\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes005\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes005\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes005\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes005\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes005\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes005\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes005\src\DIYDoom\Player.cpp" />
+    <Content Include="Documentation\Notes005\src\DIYDoom\Player.h" />
+    <Content Include="Documentation\Notes005\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes005\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes005\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes005\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes006\notes\img\bsptree.PNG" />
+    <Resource Include="Documentation\Notes006\notes\img\simpletree.PNG" />
+    <Resource Include="Documentation\Notes006\notes\img\treesearch.gif" />
+    <Content Include="Documentation\Notes006\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes006\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes006\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes006\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes006\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes006\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes006\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes006\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes006\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes006\src\DIYDoom\Player.cpp" />
+    <Content Include="Documentation\Notes006\src\DIYDoom\Player.h" />
+    <Content Include="Documentation\Notes006\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes006\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes006\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes006\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes007\notes\img\BSP1.png" />
+    <Resource Include="Documentation\Notes007\notes\img\BSP15.png" />
+    <Resource Include="Documentation\Notes007\notes\img\BSP2.png" />
+    <Resource Include="Documentation\Notes007\notes\img\BSP4.png" />
+    <Resource Include="Documentation\Notes007\notes\img\node.png" />
+    <Resource Include="Documentation\Notes007\notes\img\tree.png" />
+    <Resource Include="Documentation\Notes007\notes\img\vector_down.png" />
+    <Resource Include="Documentation\Notes007\notes\img\vector_up.png" />
+    <Content Include="Documentation\Notes007\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes007\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes007\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes007\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes007\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes007\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes007\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes007\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes007\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes007\src\DIYDoom\Player.cpp" />
+    <Content Include="Documentation\Notes007\src\DIYDoom\Player.h" />
+    <Content Include="Documentation\Notes007\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes007\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes007\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes007\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes008\notes\img\BSP1.png" />
+    <Resource Include="Documentation\Notes008\notes\img\BSP10.png" />
+    <Resource Include="Documentation\Notes008\notes\img\BSP11.png" />
+    <Resource Include="Documentation\Notes008\notes\img\BSP12.png" />
+    <Resource Include="Documentation\Notes008\notes\img\BSP13.png" />
+    <Resource Include="Documentation\Notes008\notes\img\BSP14.png" />
+    <Resource Include="Documentation\Notes008\notes\img\BSP15.png" />
+    <Resource Include="Documentation\Notes008\notes\img\BSP2.png" />
+    <Resource Include="Documentation\Notes008\notes\img\BSP3.png" />
+    <Resource Include="Documentation\Notes008\notes\img\BSP4.png" />
+    <Resource Include="Documentation\Notes008\notes\img\BSP5.png" />
+    <Resource Include="Documentation\Notes008\notes\img\BSP6.png" />
+    <Resource Include="Documentation\Notes008\notes\img\BSP7.png" />
+    <Resource Include="Documentation\Notes008\notes\img\BSP8.png" />
+    <Resource Include="Documentation\Notes008\notes\img\BSP9.png" />
+    <Resource Include="Documentation\Notes008\notes\img\crossprod.png" />
+    <Resource Include="Documentation\Notes008\notes\img\crossproduct.gif" />
+    <Resource Include="Documentation\Notes008\notes\img\search.gif" />
+    <Resource Include="Documentation\Notes008\notes\img\subsectors.png" />
+    <Resource Include="Documentation\Notes008\notes\img\vector.png" />
+    <Content Include="Documentation\Notes008\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes008\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes008\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes008\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes008\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes008\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes008\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes008\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes008\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes008\src\DIYDoom\Player.cpp" />
+    <Content Include="Documentation\Notes008\src\DIYDoom\Player.h" />
+    <Content Include="Documentation\Notes008\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes008\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes008\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes008\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes009\notes\img\connected.png" />
+    <Resource Include="Documentation\Notes009\notes\img\diydoom.gif" />
+    <Resource Include="Documentation\Notes009\notes\img\node.png" />
+    <Resource Include="Documentation\Notes009\notes\img\segs.png" />
+    <Resource Include="Documentation\Notes009\notes\img\singleroom.png" />
+    <Resource Include="Documentation\Notes009\notes\img\singleroom_2d.png" />
+    <Resource Include="Documentation\Notes009\notes\img\singlestep.png" />
+    <Resource Include="Documentation\Notes009\notes\img\singlestep_2d.png" />
+    <Resource Include="Documentation\Notes009\notes\img\subsectors.png" />
+    <Resource Include="Documentation\Notes009\notes\img\subsectorsslog.gif" />
+    <Content Include="Documentation\Notes009\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes009\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes009\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes009\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes009\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes009\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes009\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes009\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes009\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes009\src\DIYDoom\Player.cpp" />
+    <Content Include="Documentation\Notes009\src\DIYDoom\Player.h" />
+    <Content Include="Documentation\Notes009\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes009\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes009\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes009\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes010\notes\img\E1M1.PNG" />
+    <Resource Include="Documentation\Notes010\notes\img\faceback.png" />
+    <Resource Include="Documentation\Notes010\notes\img\player360.gif" />
+    <Resource Include="Documentation\Notes010\notes\img\player_FOV.PNG" />
+    <Resource Include="Documentation\Notes010\notes\img\PSeg76.PNG" />
+    <Resource Include="Documentation\Notes010\notes\img\rotate_45.png" />
+    <Resource Include="Documentation\Notes010\notes\img\rotate_90.png" />
+    <Resource Include="Documentation\Notes010\notes\img\screen1.png" />
+    <Resource Include="Documentation\Notes010\notes\img\screen2.png" />
+    <Resource Include="Documentation\Notes010\notes\img\screen3.png" />
+    <Resource Include="Documentation\Notes010\notes\img\seg_cases.PNG" />
+    <Resource Include="Documentation\Notes010\notes\img\triangle.PNG" />
+    <Resource Include="Documentation\Notes010\notes\img\v1_clip.png" />
+    <Resource Include="Documentation\Notes010\notes\img\v2_clip.png" />
+    <Content Include="Documentation\Notes010\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes010\src\DIYDoom\Angle.cpp" />
+    <Content Include="Documentation\Notes010\src\DIYDoom\Angle.h" />
+    <Content Include="Documentation\Notes010\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes010\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes010\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes010\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes010\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes010\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes010\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes010\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes010\src\DIYDoom\Player.cpp" />
+    <Content Include="Documentation\Notes010\src\DIYDoom\Player.h" />
+    <Content Include="Documentation\Notes010\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes010\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes010\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes010\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes011\notes\img\player.png" />
+    <Resource Include="Documentation\Notes011\notes\img\screen.PNG" />
+    <Resource Include="Documentation\Notes011\notes\img\screen_math.PNG" />
+    <Resource Include="Documentation\Notes011\notes\img\screen_math_.PNG" />
+    <Resource Include="Documentation\Notes011\notes\img\screen_projected.PNG" />
+    <Resource Include="Documentation\Notes011\notes\img\screen_solve.png" />
+    <Resource Include="Documentation\Notes011\notes\img\walls.png" />
+    <Resource Include="Documentation\Notes011\notes\img\wall_angle.PNG" />
+    <Resource Include="Documentation\Notes011\notes\img\You.PNG" />
+    <Content Include="Documentation\Notes011\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\Angle.cpp" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\Angle.h" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\Player.cpp" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\Player.h" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\ViewRenderer.cpp" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\ViewRenderer.h" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes011\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes012\notes\img\pillar.png" />
+    <Resource Include="Documentation\Notes012\notes\img\pillar2D.png" />
+    <Resource Include="Documentation\Notes012\notes\img\playerfov.PNG" />
+    <Resource Include="Documentation\Notes012\notes\img\screen_solid.PNG" />
+    <Resource Include="Documentation\Notes012\notes\img\singleroom.png" />
+    <Resource Include="Documentation\Notes012\notes\img\singleroomlable.png" />
+    <Resource Include="Documentation\Notes012\notes\img\solid_walls.png" />
+    <Resource Include="Documentation\Notes012\notes\img\walledge.png" />
+    <Content Include="Documentation\Notes012\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\Angle.cpp" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\Angle.h" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\Player.cpp" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\Player.h" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\Things.cpp" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\Things.h" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\ViewRenderer.cpp" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\ViewRenderer.h" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes012\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes013\notes\img\3dview.png" />
+    <Resource Include="Documentation\Notes013\notes\img\clip_demo.gif" />
+    <Resource Include="Documentation\Notes013\notes\img\morph.gif" />
+    <Resource Include="Documentation\Notes013\notes\img\original.png" />
+    <Resource Include="Documentation\Notes013\notes\img\overlay.png" />
+    <Resource Include="Documentation\Notes013\notes\img\screen_solid.PNG" />
+    <Resource Include="Documentation\Notes013\notes\img\solid_walls_screen_clipped.PNG" />
+    <Resource Include="Documentation\Notes013\notes\img\topview.png" />
+    <Resource Include="Documentation\Notes013\notes\img\walls.png" />
+    <Content Include="Documentation\Notes013\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\Angle.cpp" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\Angle.h" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\Player.cpp" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\Player.h" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\Things.cpp" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\Things.h" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\ViewRenderer.cpp" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\ViewRenderer.h" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes013\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes014\notes\img\example.PNG" />
+    <Resource Include="Documentation\Notes014\notes\img\example_1.png" />
+    <Resource Include="Documentation\Notes014\notes\img\example_2.png" />
+    <Resource Include="Documentation\Notes014\notes\img\eye160.PNG" />
+    <Resource Include="Documentation\Notes014\notes\img\fish_eye.PNG" />
+    <Resource Include="Documentation\Notes014\notes\img\formula.PNG" />
+    <Resource Include="Documentation\Notes014\notes\img\johncarmacktwitter.png" />
+    <Resource Include="Documentation\Notes014\notes\img\morph_1.gif" />
+    <Resource Include="Documentation\Notes014\notes\img\morph_2.gif" />
+    <Resource Include="Documentation\Notes014\notes\img\partseg.png" />
+    <Resource Include="Documentation\Notes014\notes\img\screen.png" />
+    <Resource Include="Documentation\Notes014\notes\img\side.png" />
+    <Resource Include="Documentation\Notes014\notes\img\similar_triangles.png" />
+    <Resource Include="Documentation\Notes014\notes\img\walk.gif" />
+    <Resource Include="Documentation\Notes014\notes\img\wall.PNG" />
+    <Resource Include="Documentation\Notes014\notes\img\wall_screen.png" />
+    <Content Include="Documentation\Notes014\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\Angle.cpp" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\Angle.h" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\Player.cpp" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\Player.h" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\Things.cpp" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\Things.h" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\ViewRenderer.cpp" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\ViewRenderer.h" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes014\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes015\notes\img\cartesiancoordinate.png" />
+    <Resource Include="Documentation\Notes015\notes\img\chocodoom.png" />
+    <Resource Include="Documentation\Notes015\notes\img\example_1.png" />
+    <Resource Include="Documentation\Notes015\notes\img\example_2.png" />
+    <Resource Include="Documentation\Notes015\notes\img\example_3.png" />
+    <Resource Include="Documentation\Notes015\notes\img\example_4.png" />
+    <Resource Include="Documentation\Notes015\notes\img\example_5.png" />
+    <Resource Include="Documentation\Notes015\notes\img\example_6.png" />
+    <Resource Include="Documentation\Notes015\notes\img\example_7.png" />
+    <Resource Include="Documentation\Notes015\notes\img\fade.gif" />
+    <Resource Include="Documentation\Notes015\notes\img\partseg.png" />
+    <Resource Include="Documentation\Notes015\notes\img\play.gif" />
+    <Resource Include="Documentation\Notes015\notes\img\polarcoordinates.png" />
+    <Resource Include="Documentation\Notes015\notes\img\right.png" />
+    <Resource Include="Documentation\Notes015\notes\img\screen.png" />
+    <Resource Include="Documentation\Notes015\notes\img\screen_2.png" />
+    <Resource Include="Documentation\Notes015\notes\img\screen_error.png" />
+    <Resource Include="Documentation\Notes015\notes\img\try_1.png" />
+    <Content Include="Documentation\Notes015\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\Angle.cpp" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\Angle.h" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\ClassicDefs.h" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\Player.cpp" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\Player.h" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\Things.cpp" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\Things.h" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\ViewRenderer.cpp" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\ViewRenderer.h" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes015\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes016\notes\img\morph.gif" />
+    <Resource Include="Documentation\Notes016\notes\img\no_clip.gif" />
+    <Resource Include="Documentation\Notes016\notes\img\play.gif" />
+    <Resource Include="Documentation\Notes016\notes\img\portal.png" />
+    <Resource Include="Documentation\Notes016\notes\img\screen.png" />
+    <Resource Include="Documentation\Notes016\notes\img\screen1.png" />
+    <Resource Include="Documentation\Notes016\notes\img\screen2.png" />
+    <Resource Include="Documentation\Notes016\notes\img\top.png" />
+    <Resource Include="Documentation\Notes016\notes\img\walls.png" />
+    <Content Include="Documentation\Notes016\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\Angle.cpp" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\Angle.h" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\ClassicDefs.h" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\Player.cpp" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\Player.h" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\Things.cpp" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\Things.h" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\ViewRenderer.cpp" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\ViewRenderer.h" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes016\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes017\notes\img\currentrender.gif" />
+    <Resource Include="Documentation\Notes017\notes\img\E1M3.png" />
+    <Resource Include="Documentation\Notes017\notes\img\E1M3C.png" />
+    <Resource Include="Documentation\Notes017\notes\img\newrender.gif" />
+    <Resource Include="Documentation\Notes017\notes\img\play.gif" />
+    <Content Include="Documentation\Notes017\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\Angle.cpp" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\Angle.h" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\ClassicDefs.h" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\Player.cpp" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\Player.h" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\Things.cpp" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\Things.h" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\ViewRenderer.cpp" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\ViewRenderer.h" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes017\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes018\notes\img\palette.png" />
+    <Resource Include="Documentation\Notes018\notes\img\palette_5.png" />
+    <Resource Include="Documentation\Notes018\notes\img\retro.gif" />
+    <Resource Include="Documentation\Notes018\notes\img\screen.png" />
+    <Content Include="Documentation\Notes018\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\Angle.cpp" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\Angle.h" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\ClassicDefs.h" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\DisplayManager.cpp" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\DisplayManager.h" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\Player.cpp" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\Player.h" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\Things.cpp" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\Things.h" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\ViewRenderer.cpp" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\ViewRenderer.h" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes018\src\DIYDoom\WADReader.h" />
+    <Resource Include="Documentation\Notes019\notes\img\header.png" />
+    <Resource Include="Documentation\Notes019\notes\img\patchdata.png" />
+    <Resource Include="Documentation\Notes019\notes\img\play.gif" />
+    <Resource Include="Documentation\Notes019\notes\img\screen1.png" />
+    <Resource Include="Documentation\Notes019\notes\img\screen2.png" />
+    <Resource Include="Documentation\Notes019\notes\img\screen3.png" />
+    <Resource Include="Documentation\Notes019\notes\img\sprite.png" />
+    <Resource Include="Documentation\Notes019\notes\img\title.png" />
+    <Resource Include="Documentation\Notes019\notes\img\trans.png" />
+    <Resource Include="Documentation\Notes019\notes\img\WALL01_7.png" />
+    <Content Include="Documentation\Notes019\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\Angle.cpp" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\Angle.h" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\AssetsManager.cpp" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\AssetsManager.h" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\ClassicDefs.h" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\DisplayManager.cpp" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\DisplayManager.h" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\Patch.cpp" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\Patch.h" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\Player.cpp" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\Player.h" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\Things.cpp" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\Things.h" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\ViewRenderer.cpp" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\ViewRenderer.h" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\WADReader.h" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\Weapon.cpp" />
+    <Content Include="Documentation\Notes019\src\DIYDoom\Weapon.h" />
+    <Resource Include="Documentation\Notes020\notes\img\Patch.png" />
+    <Resource Include="Documentation\Notes020\notes\img\screen1.png" />
+    <Resource Include="Documentation\Notes020\notes\img\screen2.png" />
+    <Resource Include="Documentation\Notes020\notes\img\screen3.png" />
+    <Resource Include="Documentation\Notes020\notes\img\screen4.png" />
+    <Resource Include="Documentation\Notes020\notes\img\screen5.png" />
+    <Resource Include="Documentation\Notes020\notes\img\SW1BRN1.png" />
+    <Resource Include="Documentation\Notes020\notes\img\SW1BRN2.png" />
+    <Resource Include="Documentation\Notes020\notes\img\SW3S0.png" />
+    <Resource Include="Documentation\Notes020\notes\img\SW4S0.png" />
+    <Resource Include="Documentation\Notes020\notes\img\Texture.png" />
+    <Resource Include="Documentation\Notes020\notes\img\TexturePatch.png" />
+    <Resource Include="Documentation\Notes020\notes\img\TexturePatch2.png" />
+    <Resource Include="Documentation\Notes020\notes\img\TexturePatch3.png" />
+    <Resource Include="Documentation\Notes020\notes\img\WALL02_2.png" />
+    <Resource Include="Documentation\Notes020\notes\img\WALL02_22.png" />
+    <Resource Include="Documentation\Notes020\notes\img\WALL02_2s.png" />
+    <Resource Include="Documentation\Notes020\notes\img\WALL02_col.png" />
+    <Resource Include="Documentation\Notes020\notes\img\WALL02_o2.png" />
+    <Content Include="Documentation\Notes020\src\DIYDoom.sln" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\Angle.cpp" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\Angle.h" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\AssetsManager.cpp" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\AssetsManager.h" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\ClassicDefs.h" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\DataTypes.h" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\DisplayManager.cpp" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\DisplayManager.h" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\DIYDoom.cpp" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\DoomEngine.cpp" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\DoomEngine.h" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\Game.cpp" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\Game.h" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\Map.cpp" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\Map.h" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\Patch.cpp" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\Patch.h" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\Player.cpp" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\Player.h" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\Texture.cpp" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\Texture.h" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\Things.cpp" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\Things.h" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\ViewRenderer.cpp" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\ViewRenderer.h" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\WADLoader.cpp" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\WADLoader.h" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\WADReader.cpp" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\WADReader.h" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\Weapon.cpp" />
+    <Content Include="Documentation\Notes020\src\DIYDoom\Weapon.h" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
