@@ -20,6 +20,7 @@ namespace WAD.WADFiles
 
         private MVertexes _Vertexes = null;
         private MLines _Lines = null;
+        private MThings _Things = null;
 
         public Map(WADReader reader, int level, int episode = 0)
         {
@@ -38,6 +39,11 @@ namespace WAD.WADFiles
             {
                 switch (item.Key)
                 {
+                    case EMapLumps.ML_THINGS:
+                        {
+                            this._Things = new MThings(_Reader, item.Value);
+                        };
+                        break;
                     case EMapLumps.ML_VERTEXES:
                         {
                             this._Vertexes = new MVertexes(_Reader, item.Value);

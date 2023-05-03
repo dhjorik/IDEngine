@@ -144,11 +144,14 @@ namespace WAD.WADFiles
             List<MPoint> ret_val = new List<MPoint>();
             double dx = _MaxX - _MinX;
             double dy = _MaxY - _MinY;
+            double scale = dx > dy ? dx : dy;
 
             foreach (MVertex v in _Vertexes)
             {
-                double x = sx + (width * (v.X - _MinX) / dx);
-                double y = sy + height - (height * (v.Y - _MinY) / dy);
+                //double x = sx + (width * (v.X - _MinX) / dx);
+                //double y = sy + height - (height * (v.Y - _MinY) / dy);
+                double x = sx + (width * (v.X - _MinX) / scale);
+                double y = sy + height - (height * (v.Y - _MinY) / scale);
 
                 MPoint point = new MPoint(x, y);
                 ret_val.Add(point);

@@ -13,10 +13,11 @@ namespace IDEngine
 {
     /// <summary>
     /// Logica di interazione per MainWindow.xaml
+    /// https://doomwiki.org/wiki/Linedef
     /// </summary>
     public partial class MainWindow : Window
     {
-        readonly string wad_path = @"C:\Developer\ProjectsB\Sharping";
+        readonly string wad_path = @"C:\Developer\ProjectsB\Sharping\IDEngine";
         readonly string wad_file = @"WADs\DOOM.WAD";
         readonly WADReader rdr = null;
 
@@ -73,19 +74,23 @@ namespace IDEngine
     {
         public static void circle(double x, double y, double radius, Canvas cv)
         {
+            double diameter = radius * 2;
 
             Ellipse circle = new Ellipse()
             {
-                Width = radius,
-                Height = radius,
-                Stroke = Brushes.Red,
-                Fill = Brushes.White,
+                Width = diameter,
+                Height = diameter,
+                StrokeThickness = 1,
+                Stroke = Brushes.Red
             };
 
             cv.Children.Add(circle);
 
-            circle.SetValue(Canvas.LeftProperty, x - radius);
-            circle.SetValue(Canvas.TopProperty, y - radius);
+            Canvas.SetLeft(circle, x - radius);
+            Canvas.SetTop(circle, y - radius);
+
+            //circle.SetValue(Canvas.LeftProperty, x - radius);
+            //circle.SetValue(Canvas.TopProperty, y - radius);
         }
 
         public static void line(double ax, double ay, double bx, double by, Canvas cv)
@@ -100,9 +105,6 @@ namespace IDEngine
                 Stroke = Brushes.Green
             };
             cv.Children.Add(line);
-
-            //circle.SetValue(Canvas.LeftProperty, x);
-            //circle.SetValue(Canvas.TopProperty, y);
         }
 
         public static void rect(double ax, double ay, double dx, double dy, Canvas cv)
