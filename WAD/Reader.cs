@@ -10,7 +10,7 @@ using WAD.WADFiles;
 
 namespace WAD
 {
-    public class WADReader : IElements
+    public class WADReader : IElements, IReader
     {
         public string WAD_File { get; set; }
         public byte[] WAD_buffer { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WAD.WADFiles
 {
-    public class MLine : IElement
+    public class MNode : IElement
     {
         private WADReader _Reader { get; }
         private uint _Start = 0;
@@ -20,7 +20,7 @@ namespace WAD.WADFiles
         private ushort _RightSide = 0;
         private ushort _LeftSide = 0;
 
-        public MLine(WADReader reader, uint offset, uint index)
+        public MNode(WADReader reader, uint offset, uint index)
         {
             _Reader = reader;
             _Start = offset;
@@ -51,13 +51,13 @@ namespace WAD.WADFiles
         public ushort LeftSide { get => _LeftSide; }
     }
 
-    public class MLines : IElements
+    public class MNodes : IElements
     {
         private WADReader _Reader { get; }
         private Entry _Entry { get; }
-        private List<MLine> _Lines = null;
+        private List<MNode> _Nodes= null;
 
-        public MLines(WADReader reader, Entry entry)
+        public MNodes(WADReader reader, Entry entry)
         {
             _Entry = entry;
             _Reader = reader;
@@ -65,14 +65,14 @@ namespace WAD.WADFiles
         }
         public void Decode()
         {
-            _Lines = new List<MLine>();
+            _Nodes = new List<MNode>();
             uint size = _Entry.Size;
             uint start = _Entry.Offset;
             uint offset = 0;
-            uint blocks = size / MLine.LSize;
+            uint blocks = size / MNode.LSize;
 
 #if DEBUG
-            Console.Write("Lines: ");
+            Console.Write("Nodes: ");
             Console.Write(start);
             Console.Write(" - ");
             Console.Write(size);
@@ -83,12 +83,12 @@ namespace WAD.WADFiles
 
             for (uint i = 0; i < blocks; i++)
             {
-                MLine ln = new MLine(_Reader, start + offset, i);
-                _Lines.Add(ln);
-                offset += MLine.LSize;
+                MNode node = new MNode(_Reader, start + offset, i);
+                _Nodes.Add(node);
+                offset += MNode.LSize;
             }
         }
 
-        public List<MLine> Lines { get => _Lines; }
+        public List<MNode> Nodes { get => _Nodes; }
     }
 }

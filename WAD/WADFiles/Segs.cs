@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WAD.WADFiles
 {
-    public class MLine : IElement
+    public class MSeg : IElement
     {
         private WADReader _Reader { get; }
         private uint _Start = 0;
@@ -14,13 +14,12 @@ namespace WAD.WADFiles
 
         private ushort _StartVertex = 0;
         private ushort _EndVertex = 0;
-        private ushort _Flags = 0;
-        private ushort _Action = 0;
-        private ushort _Tags = 0;
-        private ushort _RightSide = 0;
-        private ushort _LeftSide = 0;
+        private short _Angle = 0;
+        private ushort _Linedef = 0;
+        private short _Direction = 0;
+        private short _Offset = 0;
 
-        public MLine(WADReader reader, uint offset, uint index)
+        public MSeg(WADReader reader, uint offset, uint index)
         {
             _Reader = reader;
             _Start = offset;
@@ -33,31 +32,29 @@ namespace WAD.WADFiles
         {
             _StartVertex = _Reader.ToUInt16(_Start);
             _EndVertex = _Reader.ToUInt16(_Start + 2);
-            _Flags = _Reader.ToUInt16(_Start + 4);
-            _Action = _Reader.ToUInt16(_Start + 6);
-            _Tags = _Reader.ToUInt16(_Start + 8);
-            _RightSide = _Reader.ToUInt16(_Start + 10);
-            _LeftSide = _Reader.ToUInt16(_Start + 12);
+            _Angle = _Reader.ToInt16(_Start + 4);
+            _Linedef = _Reader.ToUInt16(_Start + 6);
+            _Direction = _Reader.ToInt16(_Start + 8);
+            _Offset = _Reader.ToInt16(_Start + 10);
         }
 
-        public static uint LSize => sizeof(ushort) + sizeof(ushort) + sizeof(ushort) + sizeof(ushort) + sizeof(ushort) + sizeof(ushort) + sizeof(ushort);
+        public static uint LSize => sizeof(ushort) + sizeof(ushort) + sizeof(short) + sizeof(ushort) + sizeof(short) + sizeof(short);
 
         public ushort StartVertex { get => _StartVertex; }
         public ushort EndVertex { get => _EndVertex; }
-        public ushort Flags { get => _Flags; }
-        public ushort Action { get => _Action; }
-        public ushort Tags { get => _Tags; }
-        public ushort RightSide { get => _RightSide; }
-        public ushort LeftSide { get => _LeftSide; }
+        public short Angle { get => _Angle; }
+        public ushort Linedef { get => _Linedef; }
+        public short Direction { get => _Direction; }
+        public short Offset { get => _Offset; }
     }
 
-    public class MLines : IElements
+    public class MSegs : IElements
     {
         private WADReader _Reader { get; }
         private Entry _Entry { get; }
-        private List<MLine> _Lines = null;
+        private List<MSeg> _Segs = null;
 
-        public MLines(WADReader reader, Entry entry)
+        public MSegs(WADReader reader, Entry entry)
         {
             _Entry = entry;
             _Reader = reader;
@@ -65,14 +62,14 @@ namespace WAD.WADFiles
         }
         public void Decode()
         {
-            _Lines = new List<MLine>();
+            _Segs = new List<MSeg>();
             uint size = _Entry.Size;
             uint start = _Entry.Offset;
             uint offset = 0;
-            uint blocks = size / MLine.LSize;
+            uint blocks = size / MSeg.LSize;
 
 #if DEBUG
-            Console.Write("Lines: ");
+            Console.Write("Segs: ");
             Console.Write(start);
             Console.Write(" - ");
             Console.Write(size);
@@ -83,12 +80,12 @@ namespace WAD.WADFiles
 
             for (uint i = 0; i < blocks; i++)
             {
-                MLine ln = new MLine(_Reader, start + offset, i);
-                _Lines.Add(ln);
-                offset += MLine.LSize;
+                MSeg sdd = new MSeg(_Reader, start + offset, i);
+                _Segs.Add(sdd);
+                offset += MSeg.LSize;
             }
         }
 
-        public List<MLine> Lines { get => _Lines; }
+        public List<MSeg> Segs { get => _Segs; }
     }
 }

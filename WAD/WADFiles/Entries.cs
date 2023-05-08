@@ -8,7 +8,7 @@ using static WAD.Settings;
 
 namespace WAD.WADFiles
 {
-    public class Entry : IElements
+    public class Entry : IElement
     {
         private WADReader _Reader { get; }
         private uint _Start = 0;

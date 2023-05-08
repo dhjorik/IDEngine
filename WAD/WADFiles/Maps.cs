@@ -11,7 +11,7 @@ using static WAD.Settings;
 
 namespace WAD.WADFiles
 {
-    public class Map : IElements
+    public class Map : IElement
     {
         private WADReader _Reader { get; }
 
@@ -21,6 +21,9 @@ namespace WAD.WADFiles
         private MVertexes _Vertexes = null;
         private MLines _Lines = null;
         private MThings _Things = null;
+        private MSidedefs _Sidedefs = null;
+        private MSegs _Segs = null;
+        private MSectors _Sectors = null;
 
         public Map(WADReader reader, int level, int episode = 0)
         {
@@ -52,6 +55,21 @@ namespace WAD.WADFiles
                     case EMapLumps.ML_LINEDEFS:
                         {
                             this._Lines = new MLines(_Reader, item.Value);
+                        };
+                        break;
+                    case EMapLumps.ML_SIDEDEFS:
+                        {
+                            this._Sidedefs = new MSidedefs(_Reader, item.Value);
+                        };
+                        break;
+                    case EMapLumps.ML_SEGS:
+                        {
+                            this._Segs = new MSegs(_Reader, item.Value);
+                        };
+                        break;
+                    case EMapLumps.ML_SECTORS:
+                        {
+                            this._Sectors = new MSectors(_Reader, item.Value);
                         };
                         break;
                 }

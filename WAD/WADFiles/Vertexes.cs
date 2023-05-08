@@ -13,7 +13,7 @@ namespace WAD.WADFiles
     /// <summary>
     /// Vertex (WAD format)
     /// </summary>
-    public class MVertex : IElements
+    public class MVertex : IElement
     {
         private WADReader _Reader { get; }
         private uint _Start = 0;

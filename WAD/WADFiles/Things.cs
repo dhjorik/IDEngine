@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WAD.WADFiles
 {
-    public class MThing : IElements
+    public class MThing : IElement
     {
         private WADReader _Reader { get; }
         private uint _Start = 0;
