@@ -12,13 +12,14 @@ namespace WAD.WADFiles
         private uint _Start = 0;
         private uint _Index = 0;
 
-        private ushort _StartVertex = 0;
-        private ushort _EndVertex = 0;
-        private ushort _Flags = 0;
-        private ushort _Action = 0;
-        private ushort _Tags = 0;
-        private ushort _RightSide = 0;
-        private ushort _LeftSide = 0;
+        private short _StartX = 0;
+        private short _StartY = 0;
+        private short _DeltaX = 0;
+        private short _DeltaY = 0;
+        private short[] _RightBB = new short[4];
+        private short[] _LeftBB = new short[4];
+        private ushort _RightChild = 0;
+        private ushort _LeftChild = 0;
 
         public MNode(WADReader reader, uint offset, uint index)
         {
@@ -31,31 +32,43 @@ namespace WAD.WADFiles
 
         public void Decode()
         {
-            _StartVertex = _Reader.ToUInt16(_Start);
-            _EndVertex = _Reader.ToUInt16(_Start + 2);
-            _Flags = _Reader.ToUInt16(_Start + 4);
-            _Action = _Reader.ToUInt16(_Start + 6);
-            _Tags = _Reader.ToUInt16(_Start + 8);
-            _RightSide = _Reader.ToUInt16(_Start + 10);
-            _LeftSide = _Reader.ToUInt16(_Start + 12);
+            _StartX = _Reader.ToInt16(_Start);
+            _StartY = _Reader.ToInt16(_Start + 2);
+            _DeltaX = _Reader.ToInt16(_Start + 4);
+            _DeltaY = _Reader.ToInt16(_Start + 6);
+
+            _RightBB[0] = _Reader.ToInt16(_Start + 8);
+            _RightBB[1] = _Reader.ToInt16(_Start + 10);
+            _RightBB[2] = _Reader.ToInt16(_Start + 12);
+            _RightBB[3] = _Reader.ToInt16(_Start + 14);
+
+            _LeftBB[0] = _Reader.ToInt16(_Start + 16);
+            _LeftBB[1] = _Reader.ToInt16(_Start + 18);
+            _LeftBB[2] = _Reader.ToInt16(_Start + 20);
+            _LeftBB[3] = _Reader.ToInt16(_Start + 22);
+
+            _RightChild = _Reader.ToUInt16(_Start + 24);
+            _LeftChild = _Reader.ToUInt16(_Start + 26);
         }
 
-        public static uint LSize => sizeof(ushort) + sizeof(ushort) + sizeof(ushort) + sizeof(ushort) + sizeof(ushort) + sizeof(ushort) + sizeof(ushort);
+        public static uint LSize => sizeof(short) + sizeof(short) + sizeof(short) + sizeof(short) + sizeof(short) * 4
+            + sizeof(short) * 4 + sizeof(ushort) + sizeof(ushort);
 
-        public ushort StartVertex { get => _StartVertex; }
-        public ushort EndVertex { get => _EndVertex; }
-        public ushort Flags { get => _Flags; }
-        public ushort Action { get => _Action; }
-        public ushort Tags { get => _Tags; }
-        public ushort RightSide { get => _RightSide; }
-        public ushort LeftSide { get => _LeftSide; }
+        public short StartX { get => _StartX; }
+        public short StartY { get => _StartY; }
+        public short DeltaX { get => _DeltaX; }
+        public short DeltaY { get => _DeltaY; }
+        public short[] RightBB { get => _RightBB; }
+        public short[] LeftBB { get => _LeftBB; }
+        public ushort RightChild { get => _RightChild; }
+        public ushort LeftChild { get => _LeftChild; }
     }
 
     public class MNodes : IElements
     {
         private WADReader _Reader { get; }
         private Entry _Entry { get; }
-        private List<MNode> _Nodes= null;
+        private List<MNode> _Nodes = null;
 
         public MNodes(WADReader reader, Entry entry)
         {

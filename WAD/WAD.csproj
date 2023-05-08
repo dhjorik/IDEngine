@@ -47,6 +47,8 @@
     <Compile Include="WADFiles\BoundingBox.cs" />
     <Compile Include="WADFiles\Entries.cs" />
     <Compile Include="WADFiles\Headers.cs" />
+    <Compile Include="WADFiles\Nodes.cs" />
+    <Compile Include="WADFiles\SSectors.cs" />
     <Compile Include="WADFiles\Sectors.cs" />
     <Compile Include="WADFiles\Segs.cs" />
     <Compile Include="WADFiles\Sidedefs.cs" />

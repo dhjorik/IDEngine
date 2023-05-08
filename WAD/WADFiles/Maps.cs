@@ -24,6 +24,8 @@ namespace WAD.WADFiles
         private MSidedefs _Sidedefs = null;
         private MSegs _Segs = null;
         private MSectors _Sectors = null;
+        private MSubSectors _SubSectors = null;
+        private MNodes _Nodes = null;
 
         public Map(WADReader reader, int level, int episode = 0)
         {
@@ -70,6 +72,16 @@ namespace WAD.WADFiles
                     case EMapLumps.ML_SECTORS:
                         {
                             this._Sectors = new MSectors(_Reader, item.Value);
+                        };
+                        break;
+                    case EMapLumps.ML_SSECTORS:
+                        {
+                            this._SubSectors = new MSubSectors(_Reader, item.Value);
+                        };
+                        break;
+                    case EMapLumps.ML_NODES:
+                        {
+                            this._Nodes = new MNodes(_Reader, item.Value);
                         };
                         break;
                 }

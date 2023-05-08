@@ -40,7 +40,7 @@ namespace WAD.WADFiles
             _Tags = _Reader.ToInt16(_Start + 24);
         }
 
-        public static uint LSize => sizeof(short) + sizeof(short) + 8 + 8 + sizeof(short) + sizeof(short) + sizeof(short)
+        public static uint LSize => sizeof(short) + sizeof(short) + 8 + 8 + sizeof(short) + sizeof(short) + sizeof(short);
 
         public short FloorHeight { get => _FloorHeight; }
         public short CeilHeight { get => _CeilHeight; }
