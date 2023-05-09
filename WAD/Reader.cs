@@ -19,7 +19,8 @@ namespace WAD
         private Header _Header = null;
         private Entries _Entries = null;
         private Maps _Maps = null;
-        private MPlayPal _PlayPal = null;
+        private Palettes _Palettes = null;
+        private Images _Images = null;
 
         public WADReader(string wad_path)
         {
@@ -41,7 +42,8 @@ namespace WAD
         public Header Header { get => _Header; }
         public Entries Entries { get => _Entries; }
         public Maps Maps { get => _Maps; }
-        public MPlayPal PlayPal { get => _PlayPal; }
+        public Palettes Palettes { get => _Palettes; }
+        public Images Images { get => _Images; }
 
         private void Read_Header()
         {
@@ -60,7 +62,12 @@ namespace WAD
 
         private void Read_Colors()
         {
-            _PlayPal = new MPlayPal(this);
+            _Palettes = new Palettes(this);
+        }
+
+        private void Read_Images()
+        {
+            _Images = new Images(this);
         }
 
         private void Bufferize()
@@ -124,6 +131,8 @@ namespace WAD
             this.Read_Header();
             this.Read_Entries();
             this.Read_Maps();
+            this.Read_Colors();
+            this.Read_Images();
         }
 
         public string ToString(uint offset, int size)

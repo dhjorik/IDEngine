@@ -107,6 +107,6 @@ namespace WAD.WADFiles.Colors
             }
         }
 
-        public List<MPalette> Lines { get => _Palettes; }
+        public List<MPalette> Palettes { get => _Palettes; }
     }
 }

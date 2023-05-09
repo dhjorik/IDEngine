@@ -38,6 +38,7 @@ namespace IDEngine
             lbl_screen.Content = rdr.Header.ToString();
             list_screen.ItemsSource = rdr.Entries.ListToStrings();
             list_maps.ItemsSource = rdr.Maps.names;
+            list_textures.ItemsSource = rdr.Images.Textures.Textures;
         }
 
         private void list_maps_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -48,6 +49,11 @@ namespace IDEngine
 
             Map map = rdr.Maps.MapByName(sel_value);
             this.render(map);
+        }
+
+        private void list_textures_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            panel.Children.Clear();
         }
 
         private void render(Map map)
@@ -127,6 +133,14 @@ namespace IDEngine
 
             Canvas.SetLeft(rect, ax);
             Canvas.SetTop(rect, ay);
+        }
+
+        public static void image(Image img, double ax, double ay, double dx, double dy, Canvas cv)
+        {
+            cv.Children.Add(img);
+
+            Canvas.SetLeft(img, ax);
+            Canvas.SetTop(img, ay);
         }
     }
 }

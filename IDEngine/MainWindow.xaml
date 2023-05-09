@@ -18,13 +18,18 @@
             <ColumnDefinition Width="800"/>
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
         <Canvas x:Name="panel" Background="Black" Grid.Row="0" Grid.Column="0"></Canvas>
+        <ListView x:Name="list_screen" Background="LightGreen" Grid.Row="0" Grid.Column="1"></ListView>
         <ListView x:Name="list_maps" Background="LightBlue" SelectionChanged="list_maps_SelectionChanged"
-                  Grid.Row="0" Grid.Column="1"></ListView>
-        <ListView x:Name="list_points" Background="LightGray" Grid.Row="0" Grid.Column="2"></ListView>
+                  Grid.Row="0" Grid.Column="2"></ListView>
+        <ListView x:Name="list_points" Background="LightGray" Grid.Row="0" Grid.Column="3"></ListView>
+        <ListView x:Name="list_textures" Background="LightYellow" SelectionChanged="list_textures_SelectionChanged"
+                  Grid.Row="0" Grid.Column="4"></ListView>
 
-        <Label x:Name="lbl_screen" Grid.Row="1" Grid.Column="0" Background="Green" Foreground="White" Content="Log:"></Label>
-        <ListView x:Name="list_screen" Grid.Row="1" Grid.Column="1"></ListView>
+        <Label x:Name="lbl_screen" Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="5"
+               Background="Green" Foreground="White" Content="Log:"></Label>
     </Grid>
 </Window>
