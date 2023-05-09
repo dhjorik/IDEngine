@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using WAD.WADFiles;
+using WAD.WADFiles.Colors;
 
 namespace WAD
 {
@@ -18,6 +19,7 @@ namespace WAD
         private Header _Header = null;
         private Entries _Entries = null;
         private Maps _Maps = null;
+        private MPlayPal _PlayPal = null;
 
         public WADReader(string wad_path)
         {
@@ -39,6 +41,7 @@ namespace WAD
         public Header Header { get => _Header; }
         public Entries Entries { get => _Entries; }
         public Maps Maps { get => _Maps; }
+        public MPlayPal PlayPal { get => _PlayPal; }
 
         private void Read_Header()
         {
@@ -53,6 +56,11 @@ namespace WAD
         private void Read_Maps()
         {
             _Maps = new Maps(this);
+        }
+
+        private void Read_Colors()
+        {
+            _PlayPal = new MPlayPal(this);
         }
 
         private void Bufferize()

@@ -44,19 +44,19 @@
     <Compile Include="Reader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="WADFiles\BoundingBox.cs" />
-    <Compile Include="WADFiles\Entries.cs" />
+    <Compile Include="Entries.cs" />
+    <Compile Include="WADFiles\Colors\PlayPalettes.cs" />
     <Compile Include="WADFiles\Headers.cs" />
-    <Compile Include="WADFiles\Nodes.cs" />
-    <Compile Include="WADFiles\SSectors.cs" />
-    <Compile Include="WADFiles\Sectors.cs" />
-    <Compile Include="WADFiles\Segs.cs" />
-    <Compile Include="WADFiles\Sidedefs.cs" />
-    <Compile Include="WADFiles\Things.cs" />
-    <Compile Include="WADFiles\Lines.cs" />
+    <Compile Include="WADFiles\Levels\Nodes.cs" />
+    <Compile Include="WADFiles\Levels\SSectors.cs" />
+    <Compile Include="WADFiles\Levels\Sectors.cs" />
+    <Compile Include="WADFiles\Levels\Segs.cs" />
+    <Compile Include="WADFiles\Levels\Sidedefs.cs" />
+    <Compile Include="WADFiles\Levels\Things.cs" />
+    <Compile Include="WADFiles\Levels\Lines.cs" />
     <Compile Include="WADFiles\Maps.cs" />
-    <Compile Include="WADFiles\Vertexes.cs" />
-    <Compile Include="WADFiles\Elements.cs" />
+    <Compile Include="WADFiles\Levels\Vertexes.cs" />
+    <Compile Include="Elements.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

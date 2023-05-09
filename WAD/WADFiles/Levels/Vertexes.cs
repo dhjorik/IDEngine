@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 
 
-namespace WAD.WADFiles
+namespace WAD.WADFiles.Levels
 {
     /// <summary>
     /// Vertex (WAD format)

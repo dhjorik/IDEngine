@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using static WAD.Settings;
 
-namespace WAD.WADFiles
+namespace WAD
 {
     public class Entry : IElement
     {

@@ -8,23 +8,30 @@ using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 using WAD;
 using WAD.WADFiles;
+using WAD.WADFiles.Levels;
 
 namespace IDEngine
 {
     /// <summary>
     /// Logica di interazione per MainWindow.xaml
-    /// https://doomwiki.org/wiki/Linedef
-    /// </summary>
+    /// https://doomwiki.org/
     public partial class MainWindow : Window
     {
-        readonly string wad_path = @"C:\Developer\ProjectsB\Sharping\IDEngine";
+        // readonly string wad_path = @"C:\Developer\ProjectsB\Sharping\IDEngine";
+        readonly string wad_path = @"C:\Pythons\projects\sharps\IDEngine";
         readonly string wad_file = @"WADs\DOOM.WAD";
         readonly WADReader rdr = null;
 
         public MainWindow()
         {
             InitializeComponent();
-            string file_path = System.IO.Path.Combine(this.wad_path, this.wad_file);
+
+            //Console.WriteLine(System.AppDomain.CurrentDomain.BaseDirectory);
+            //Console.WriteLine(System.Environment.CurrentDirectory);
+            //Console.WriteLine(System.IO.Directory.GetCurrentDirectory());
+            //Console.WriteLine(Environment.CurrentDirectory);
+            
+            string file_path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, this.wad_file);
 
             rdr = new WADReader(file_path);
 

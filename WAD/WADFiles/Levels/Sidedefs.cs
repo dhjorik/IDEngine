@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WAD.WADFiles
+namespace WAD.WADFiles.Levels
 {
     public class MSidedef : IElement
     {
