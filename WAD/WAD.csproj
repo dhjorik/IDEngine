@@ -45,6 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Entries.cs" />
+    <Compile Include="WADFiles\Bitmaps\Flats.cs" />
     <Compile Include="WADFiles\Bitmaps\Textures.cs" />
     <Compile Include="WADFiles\Bitmaps\Patches.cs" />
     <Compile Include="WADFiles\Images.cs" />

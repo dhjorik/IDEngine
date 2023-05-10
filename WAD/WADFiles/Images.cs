@@ -16,6 +16,8 @@ namespace WAD.WADFiles
         private MPatches _Patches = null;
         private MTextures _Textures = null;
 
+        private MFlats _Flats = null;
+
         public Images(WADReader reader)
         {
             _Reader = reader;
@@ -43,9 +45,13 @@ namespace WAD.WADFiles
                 Entry entry = _Reader.Entries.LumpByName(lumpName);
                 _Textures = new MTextures(_Reader, entry);
             }
+
+            _Flats = new MFlats(_Reader);
         }
 
         public MPatches Patches { get => _Patches; }
         public MTextures Textures { get => _Textures; }
+
+        public MFlats Flats { get => _Flats; }
     }
 }

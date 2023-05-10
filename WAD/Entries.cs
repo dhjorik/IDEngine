@@ -117,6 +117,12 @@ namespace WAD
             return value;
         }
 
+        public uint LumpIndexByName(string name)
+        {
+            Entry value = _Entries.Find(x => x.Name == name);
+            return (value == null ? 0 : value.Index);
+        }
+
         public Dictionary<EMapLumps, Entry> MapByName(string name)
         {
             int count = (int)Settings.EMapLumps.ML_COUNT;
