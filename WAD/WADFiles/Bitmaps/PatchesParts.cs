@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WAD.WADFiles.Bitmaps
 {
-    public class MFlat : IElement
+    public class MPart : IElement
     {
         private WADReader _Reader { get; }
         private uint _Start = 0;
@@ -14,7 +14,7 @@ namespace WAD.WADFiles.Bitmaps
 
         private string _Name = "";
 
-        public MFlat(WADReader reader, uint index)
+        public MPart(WADReader reader, uint index)
         {
             _Reader = reader;
             _Index = index;
@@ -34,19 +34,18 @@ namespace WAD.WADFiles.Bitmaps
         }
     }
 
-    public class MFlats : IElements
+    public class MParts : IElements
     {
         private static readonly string SUFFIX_START = "_START";
         private static readonly string SUFFIX_END = "_END";
 
-        private static readonly string PREFIX = "F";
-        private static readonly List<string> COUNTERS = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+        private static readonly string PREFIX = "P";
 
         private WADReader _Reader { get; }
 
-        private List<MFlat> _Flats = null;
+        private List<MPart> _PatchParts = null;
 
-        public MFlats(WADReader reader)
+        public MParts(WADReader reader)
         {
             _Reader = reader;
             this.Decode();
@@ -55,7 +54,7 @@ namespace WAD.WADFiles.Bitmaps
         public void Decode()
         {
             string name = "";
-            _Flats = new List<MFlat>();
+            _PatchParts = new List<MPart>();
 
             name = string.Concat(PREFIX, SUFFIX_START);
             uint start_all = _Reader.Entries.LumpIndexByName(name);
@@ -63,7 +62,7 @@ namespace WAD.WADFiles.Bitmaps
             uint end_all = _Reader.Entries.LumpIndexByName(name);
 
 #if DEBUG
-            Console.Write("Flats: ");
+            Console.Write("Patches Parts: ");
             Console.Write(start_all);
             Console.Write(" - ");
             Console.Write(end_all);
@@ -75,12 +74,12 @@ namespace WAD.WADFiles.Bitmaps
                 Entry entry = _Reader.Entries.LumpByIndex(i);
                 if (entry.Size > 0)
                 {
-                    MFlat ln = new MFlat(_Reader, i);
-                    _Flats.Add(ln);
+                    MPart ln = new MPart(_Reader, i);
+                    _PatchParts.Add(ln);
                 }
             }
         }
 
-        public List<MFlat> Flats { get => _Flats; }
+        public List<MPart> PatchParts { get => _PatchParts; }
     }
 }

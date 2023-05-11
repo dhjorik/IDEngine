@@ -17,6 +17,8 @@ namespace WAD.WADFiles
         private MTextures _Textures = null;
 
         private MFlats _Flats = null;
+        private MSprites _Sprites = null;
+        private MParts _Parts = null;
 
         public Images(WADReader reader)
         {
@@ -47,11 +49,15 @@ namespace WAD.WADFiles
             }
 
             _Flats = new MFlats(_Reader);
+            _Sprites = new MSprites(_Reader);
+            _Parts = new MParts(_Reader);
         }
 
         public MPatches Patches { get => _Patches; }
         public MTextures Textures { get => _Textures; }
 
         public MFlats Flats { get => _Flats; }
+        public MSprites Sprites { get => _Sprites; }
+        public MParts PatchesParts { get => _Parts; } 
     }
 }

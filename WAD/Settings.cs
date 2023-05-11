@@ -49,5 +49,7 @@ namespace WAD
         };
 
         internal const string tableSequence = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        private const char Separator = ',';
+        internal static readonly string[] COUNTERS = "1,2,3,4,5,6,7,8,9".Split(Separator);
     }
 }

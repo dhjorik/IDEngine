@@ -15,6 +15,8 @@ namespace IDEngine
     /// <summary>
     /// Logica di interazione per MainWindow.xaml
     /// https://doomwiki.org/
+    /// https://oldgamesdownload.com/duke-nukem-3d/
+    /// https://en.wikipedia.org/wiki/Quake_engine
     public partial class MainWindow : Window
     {
         // readonly string wad_path = @"C:\Developer\ProjectsB\Sharping\IDEngine";
