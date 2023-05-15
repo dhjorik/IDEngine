@@ -33,6 +33,10 @@ namespace WAD.WADFiles.Colors
             _Green = _Reader.ToUInt8(_Start + 1);
             _Blue = _Reader.ToUInt8(_Start + 2);
         }
+
+        public byte R { get => _Red; }
+        public byte G { get => _Green; }
+        public byte B { get => _Blue; }
     }
 
     public class MPalette : IElement

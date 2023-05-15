@@ -13,6 +13,7 @@ namespace WAD.WADFiles.Bitmaps
         private uint _Index = 0;
 
         private string _Name = "";
+        private Picture _Picture = null;
 
         public MSprite(WADReader reader, uint index)
         {
@@ -26,7 +27,11 @@ namespace WAD.WADFiles.Bitmaps
         {
             Entry entry = _Reader.Entries.LumpByIndex(this._Index);
             _Name = entry.Name;
+            _Picture = new Picture(_Reader, _Name);
         }
+
+        public string Name { get { return _Name; } }
+        public Picture Picture { get { return _Picture; } }
 
         public override string ToString()
         {
@@ -81,5 +86,11 @@ namespace WAD.WADFiles.Bitmaps
         }
 
         public List<MSprite> Sprites { get => _Sprites; }
+
+        public MSprite SpriteByName(string name)
+        {
+            MSprite value = _Sprites.Find(x => x.Name == name);
+            return value;
+        }
     }
 }

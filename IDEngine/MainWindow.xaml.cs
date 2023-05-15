@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 using WAD;
 using WAD.WADFiles;
+using WAD.WADFiles.Bitmaps;
+using WAD.WADFiles.Colors;
 using WAD.WADFiles.Levels;
 
 namespace IDEngine
@@ -19,6 +23,9 @@ namespace IDEngine
     /// https://en.wikipedia.org/wiki/Quake_engine
     public partial class MainWindow : Window
     {
+        uint current_palette = 0;
+        uint current_map = 0;
+
         // readonly string wad_path = @"C:\Developer\ProjectsB\Sharping\IDEngine";
         readonly string wad_path = @"C:\Pythons\projects\sharps\IDEngine";
         readonly string wad_file = @"WADs\DOOM.WAD";
@@ -32,7 +39,7 @@ namespace IDEngine
             //Console.WriteLine(System.Environment.CurrentDirectory);
             //Console.WriteLine(System.IO.Directory.GetCurrentDirectory());
             //Console.WriteLine(Environment.CurrentDirectory);
-            
+
             string file_path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, this.wad_file);
 
             rdr = new WADReader(file_path);
@@ -40,7 +47,7 @@ namespace IDEngine
             lbl_screen.Content = rdr.Header.ToString();
             list_screen.ItemsSource = rdr.Entries.ListToStrings();
             list_maps.ItemsSource = rdr.Maps.names;
-            list_textures.ItemsSource = rdr.Images.Textures.Textures;
+            list_textures.ItemsSource = rdr.Images.Patches.Patches;
         }
 
         private void list_maps_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -55,7 +62,42 @@ namespace IDEngine
 
         private void list_textures_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            panel.Children.Clear();
+            MPatch sel_value = list_textures.SelectedValue as MPatch;
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("Patch name: ");
+            sb.AppendLine(sel_value.ToString());
+
+            var palette = rdr.Palettes.GetPalette(0, 0);
+            Picture pct = sel_value.Picture;
+            lbl_screen.Content = pct.ToString();
+
+            panel_bitmap.Children.Clear();
+            draw.image(pct, 0, 0, panel_bitmap);
+        }
+
+        private void render_palette(uint palette, uint colormap)
+        {
+            panel_palette.Children.Clear();
+
+            double x_size = panel_palette.ActualWidth / 16;
+            double y_size = panel_palette.ActualHeight / 16;
+
+            var pal = rdr.Palettes.GetPalette((byte)palette, (byte)colormap);
+
+            for (int i = 0; i < 256; i++)
+            {
+                MColor mcol = pal[i];
+                Brush brush = new SolidColorBrush(Color.FromArgb(255, mcol.R, mcol.G, mcol.B));
+
+                int col = i % 16;
+                int row = i / 16;
+
+                double x = x_size * col;
+                double y = y_size * row;
+
+                draw.fillrect(x, y, x_size, y_size, panel_palette, brush);
+            }
         }
 
         private void render(Map map)
@@ -68,7 +110,7 @@ namespace IDEngine
             draw.rect(20, 20, panel.ActualWidth - 40, panel.ActualHeight - 40, panel);
 
 
-            list_points.ItemsSource = dest; // vtx.Vertexes;
+            list_points.ItemsSource = dest;
             lbl_screen.Content = vtx.BBoxString();
             foreach (var v in dest)
             {
@@ -83,20 +125,46 @@ namespace IDEngine
                 draw.line(a.X, a.Y, b.X, b.Y, panel);
             }
         }
+
+        private void panel_palette_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            lbl_screen.Content = "Palette: " + current_palette.ToString() + " - Color Map: " + current_map.ToString();
+            this.render_palette(current_palette, current_map);
+            current_palette++;
+            if (current_palette >= rdr.Palettes.PlayPal.Palettes.Count)
+            {
+                current_palette = 0;
+            }
+        }
+
+        private void panel_colormap_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            lbl_screen.Content = "Palette: " + current_palette.ToString() + " - Color Map: " + current_map.ToString();
+            this.render_palette(current_palette, current_map);
+            current_map++;
+            if (current_map >= rdr.Palettes.ColorMaps.ColorMaps.Count)
+            {
+                current_map = 0;
+            }
+        }
     }
 
     internal class draw
     {
-        public static void circle(double x, double y, double radius, Canvas cv)
+        public static void circle(double x, double y, double radius, Canvas cv, Brush color = null)
         {
             double diameter = radius * 2;
+
+            Brush stroke = color;
+            if (color == null)
+                stroke = Brushes.Red;
 
             Ellipse circle = new Ellipse()
             {
                 Width = diameter,
                 Height = diameter,
                 StrokeThickness = 1,
-                Stroke = Brushes.Red
+                Stroke = stroke
             };
 
             cv.Children.Add(circle);
@@ -108,8 +176,11 @@ namespace IDEngine
             //circle.SetValue(Canvas.TopProperty, y - radius);
         }
 
-        public static void line(double ax, double ay, double bx, double by, Canvas cv)
+        public static void line(double ax, double ay, double bx, double by, Canvas cv, Brush color = null)
         {
+            Brush stroke = color;
+            if (color == null)
+                stroke = Brushes.LightSeaGreen;
             Line line = new Line()
             {
                 X1 = ax,
@@ -117,19 +188,42 @@ namespace IDEngine
                 X2 = bx,
                 Y2 = by,
                 StrokeThickness = 1,
-                Stroke = Brushes.Green
+                Stroke = stroke
             };
             cv.Children.Add(line);
         }
 
-        public static void rect(double ax, double ay, double dx, double dy, Canvas cv)
+        public static void fillrect(double ax, double ay, double dx, double dy, Canvas cv, Brush color = null)
         {
+            Brush stroke = color;
+            if (color == null)
+                stroke = Brushes.LightSkyBlue;
+
             Rectangle rect = new Rectangle()
             {
                 Width = dx,
                 Height = dy,
                 StrokeThickness = 1,
-                Stroke = Brushes.White
+                Fill = stroke,
+                Stroke = stroke,
+            };
+            cv.Children.Add(rect);
+
+            Canvas.SetLeft(rect, ax);
+            Canvas.SetTop(rect, ay);
+        }
+        public static void rect(double ax, double ay, double dx, double dy, Canvas cv, Brush color = null)
+        {
+            Brush stroke = color;
+            if (color == null)
+                stroke = Brushes.White;
+
+            Rectangle rect = new Rectangle()
+            {
+                Width = dx,
+                Height = dy,
+                StrokeThickness = 1,
+                Stroke = stroke
             };
             cv.Children.Add(rect);
 
@@ -137,8 +231,13 @@ namespace IDEngine
             Canvas.SetTop(rect, ay);
         }
 
-        public static void image(Image img, double ax, double ay, double dx, double dy, Canvas cv)
+        public static void image(Picture pct, double ax, double ay, Canvas cv)
         {
+            BitmapImage bm = new BitmapImage();
+
+            Image img = new Image();
+            img.Source = bm;
+
             cv.Children.Add(img);
 
             Canvas.SetLeft(img, ax);

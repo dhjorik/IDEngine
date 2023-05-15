@@ -13,12 +13,12 @@ namespace WAD.WADFiles
     {
         private WADReader _Reader { get; }
 
-        private MPatches _Patches = null;
+        private MWalls _Walls = null;
         private MTextures _Textures = null;
 
         private MFlats _Flats = null;
         private MSprites _Sprites = null;
-        private MParts _Parts = null;
+        private MPatches _Patches = null;
 
         public Images(WADReader reader)
         {
@@ -37,7 +37,7 @@ namespace WAD.WADFiles
             if (found)
             {
                 Entry entry = _Reader.Entries.LumpByName(lumpName);
-                _Patches = new MPatches(_Reader, entry);
+                _Walls = new MWalls(_Reader, entry);
             }
 
             lumpName = "TEXTURE1";
@@ -50,14 +50,22 @@ namespace WAD.WADFiles
 
             _Flats = new MFlats(_Reader);
             _Sprites = new MSprites(_Reader);
-            _Parts = new MParts(_Reader);
+            _Patches = new MPatches(_Reader);
         }
 
-        public MPatches Patches { get => _Patches; }
+        public MWalls Walls { get => _Walls; }
         public MTextures Textures { get => _Textures; }
 
         public MFlats Flats { get => _Flats; }
         public MSprites Sprites { get => _Sprites; }
-        public MParts PatchesParts { get => _Parts; } 
+        public MPatches Patches { get => _Patches; }
+
+
+        public byte[] RenderPicture(Picture pic, MColorMap cmap, MPalette palette)
+        {
+            byte[] render = new byte[pic.Width * pic.Height * 4];
+
+            return render;
+        }
     }
 }

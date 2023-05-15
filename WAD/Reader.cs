@@ -148,6 +148,13 @@ namespace WAD
             return ret_val;
         }
 
+        public byte[] ToByteArray(uint offset, uint size)
+        {
+            byte[] buf = new byte[size];
+            Array.Copy(this.WAD_buffer, offset, buf, 0, size);
+            return buf;
+        }
+
         public sbyte ToInt8(uint offset)
         {
             int size = 1;

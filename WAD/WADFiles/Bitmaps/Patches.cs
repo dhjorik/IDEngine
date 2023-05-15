@@ -13,11 +13,11 @@ namespace WAD.WADFiles.Bitmaps
         private uint _Index = 0;
 
         private string _Name = "";
+        private Picture _Picture = null;
 
-        public MPatch(WADReader reader, uint offset, uint index)
+        public MPatch(WADReader reader, uint index)
         {
             _Reader = reader;
-            _Start = offset;
             _Index = index;
 
             this.Decode();
@@ -25,55 +25,73 @@ namespace WAD.WADFiles.Bitmaps
 
         public void Decode()
         {
-            _Name = _Reader.ToString(_Start,8);
+            Entry entry = _Reader.Entries.LumpByIndex(this._Index);
+            _Name = entry.Name;
+            _Picture = new Picture(_Reader, _Name);
         }
 
-        public static uint LSize => 8;
-
-        public string Name { get => _Name; }
-
+        public string Name { get { return _Name; } }
+        public Picture Picture { get { return _Picture; } }
+        
+        public override string ToString()
+        {
+            return _Name;
+        }
     }
 
     public class MPatches : IElements
     {
+        private static readonly string SUFFIX_START = "_START";
+        private static readonly string SUFFIX_END = "_END";
+
+        private static readonly string PREFIX = "P";
+
         private WADReader _Reader { get; }
-        private Entry _Entry { get; }
+
         private List<MPatch> _Patches = null;
 
-        public MPatches(WADReader reader, Entry entry)
+        public MPatches(WADReader reader)
         {
-            _Entry = entry;
             _Reader = reader;
             this.Decode();
         }
+
         public void Decode()
         {
+            string name = "";
+            Entry entry = null;
             _Patches = new List<MPatch>();
-            uint size = _Entry.Size;
-            uint start = _Entry.Offset;
-            uint offset = 4;
-            uint blocks = size / MPatch.LSize;
-            uint count = _Reader.ToUInt32(_Entry.Offset);
+
+            name = string.Concat(PREFIX, SUFFIX_START);
+            uint start_all = _Reader.Entries.LumpIndexByName(name);
+            name = string.Concat(PREFIX, SUFFIX_END);
+            uint end_all = _Reader.Entries.LumpIndexByName(name);
 
 #if DEBUG
             Console.Write("Patches: ");
-            Console.Write(start);
+            Console.Write(start_all);
             Console.Write(" - ");
-            Console.Write(size);
-            Console.Write(" - ");
-            Console.Write(blocks);
-            Console.Write(" - ");
-            Console.Write(count);
+            Console.Write(end_all);
             Console.WriteLine("");
 #endif
-            for (uint i = 0; i < count; i++)
+
+            for (uint i = start_all + 1; i < end_all; i++)
             {
-                MPatch ln = new MPatch(_Reader, start + offset, i);
-                _Patches.Add(ln);
-                offset += MPatch.LSize;
+                entry = _Reader.Entries.LumpByIndex(i);
+                if (entry.Size > 0)
+                {
+                    MPatch ln = new MPatch(_Reader, i);
+                    _Patches.Add(ln);
+                }
             }
         }
 
         public List<MPatch> Patches { get => _Patches; }
+
+        public MPatch PatchByName(string name)
+        {
+            MPatch value = _Patches.Find(x => x.Name == name);
+            return value;
+        }
     }
 }

@@ -46,5 +46,28 @@ namespace WAD.WADFiles
 
         public MPlayPal PlayPal { get => _PlayPal; }
         public MColorMaps ColorMaps { get => _ColorMaps; }
+
+        public List<MColor> GetPalette(byte palette, byte light)
+        {
+            byte real = 0;
+            MColor rcolor = null;
+            List<MColor> result = new List<MColor>();
+            MColorMap cmap = ColorMaps.ColorMaps[light];
+            MPalette ppal = PlayPal.Palettes[palette];
+            for (int color = 0; color < 256; color++)
+            {
+                real = cmap.Colors[color];
+                rcolor = ppal.Colors[real];
+                result.Add(rcolor);
+            }
+            return result;
+        }
+
+        public MColor getColor(byte color, byte palette, byte light)
+        {
+            byte real = ColorMaps.ColorMaps[light].Colors[color];
+            MColor rcolor = PlayPal.Palettes[palette].Colors[real];
+            return rcolor;
+        }
     }
 }

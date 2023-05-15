@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:IDEngine"
         mc:Ignorable="d"
         Title="MainWindow"
-        Width="1200" Height="700"
-        MinWidth="1200" MinHeight="700"
-        MaxWidth="1600" MaxHeight="900">
+        Width="1200" Height="1000"
+        MinWidth="1200" MinHeight="1000" MaxWidth="1600" MaxHeight="1000">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="600"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="800"/>
@@ -22,6 +22,12 @@
             <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
         <Canvas x:Name="panel" Background="Black" Grid.Row="0" Grid.Column="0"></Canvas>
+        <Canvas x:Name="panel_bitmap" Background="Black" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"></Canvas>
+        <Canvas x:Name="panel_palette" Background="Black" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                MouseLeftButtonUp="panel_palette_MouseLeftButtonUp"></Canvas>
+        <Canvas x:Name="panel_colormap" Background="Black" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2"
+                MouseLeftButtonUp="panel_colormap_MouseLeftButtonUp"></Canvas>
+
         <ListView x:Name="list_screen" Background="LightGreen" Grid.Row="0" Grid.Column="1"></ListView>
         <ListView x:Name="list_maps" Background="LightBlue" SelectionChanged="list_maps_SelectionChanged"
                   Grid.Row="0" Grid.Column="2"></ListView>
@@ -29,7 +35,7 @@
         <ListView x:Name="list_textures" Background="LightYellow" SelectionChanged="list_textures_SelectionChanged"
                   Grid.Row="0" Grid.Column="4"></ListView>
 
-        <Label x:Name="lbl_screen" Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="5"
+        <Label x:Name="lbl_screen" Grid.Row="1" Grid.Column="2"  Grid.ColumnSpan="3"
                Background="Green" Foreground="White" Content="Log:"></Label>
     </Grid>
 </Window>
