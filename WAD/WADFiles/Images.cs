@@ -61,7 +61,7 @@ namespace WAD.WADFiles
         public MPatches Patches { get => _Patches; }
 
 
-        public byte[] RenderPicture(Picture pic, MColorMap cmap, MPalette palette)
+        public byte[] RenderPicture(MPicture pic, MColorMap cmap, MPalette palette)
         {
             byte[] render = new byte[pic.Width * pic.Height * 4];
 

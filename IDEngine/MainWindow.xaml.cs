@@ -27,7 +27,7 @@ namespace IDEngine
         uint current_map = 0;
 
         // readonly string wad_path = @"C:\Developer\ProjectsB\Sharping\IDEngine";
-        readonly string wad_path = @"C:\Pythons\projects\sharps\IDEngine";
+        // readonly string wad_path = @"C:\Pythons\projects\sharps\IDEngine";
         readonly string wad_file = @"WADs\DOOM.WAD";
         readonly WADReader rdr = null;
 
@@ -47,6 +47,7 @@ namespace IDEngine
             lbl_screen.Content = rdr.Header.ToString();
             list_screen.ItemsSource = rdr.Entries.ListToStrings();
             list_maps.ItemsSource = rdr.Maps.names;
+            list_flats.ItemsSource = rdr.Images.Flats.Flats;
             list_textures.ItemsSource = rdr.Images.Patches.Patches;
         }
 
@@ -60,20 +61,84 @@ namespace IDEngine
             this.render(map);
         }
 
+        private void list_flats_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MFlat sel_value = list_flats.SelectedValue as MFlat;
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Flat name: ");
+            sb.AppendLine(sel_value.ToString());
+            lbl_screen.Content = sb.ToString();
+
+            var pal = rdr.Palettes.GetPalette(0, 0);
+
+            List<MColor> colors = new List<MColor>();
+            for (int i = 0; i < 256; i++)
+            {
+                MColor mcol = pal[i];
+                colors.Add(mcol);
+            }
+
+            byte[] pixels = new byte[sel_value.Length * 3];
+            uint offset = 0;
+            for (uint i = 0; i < sel_value.Length; i++)
+            {
+                byte b = sel_value.Data[i];
+                MColor mcol = colors[b];
+                pixels[offset] = mcol.R;
+                pixels[offset + 1] = mcol.G;
+                pixels[offset + 2] = mcol.B;
+                offset += 3;
+            }
+
+            BitmapSource bitmapSource = BitmapSource.Create(sel_value.Width, sel_value.Height, 96, 96, PixelFormats.Rgb24, null, pixels, sel_value.Width * 3);
+
+            panel_bitmap.Children.Clear();
+            draw.image(bitmapSource, 0, 0, panel_bitmap);
+        }
+
         private void list_textures_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             MPatch sel_value = list_textures.SelectedValue as MPatch;
+            MPicture pct = sel_value.Picture;
+
             StringBuilder sb = new StringBuilder();
-
             sb.Append("Patch name: ");
+            sb.Append(pct.ToString());
+            sb.Append(" - ");
             sb.AppendLine(sel_value.ToString());
+            lbl_screen.Content = sb.ToString();
 
-            var palette = rdr.Palettes.GetPalette(0, 0);
-            Picture pct = sel_value.Picture;
-            lbl_screen.Content = pct.ToString();
+            var pal = rdr.Palettes.GetPalette(0, 0);
 
+            List<MColor> colors = new List<MColor>();
+            for (int i = 0; i < 256; i++)
+            {
+                MColor mcol = pal[i];
+                colors.Add(mcol);
+            }
+
+
+            byte[] pixels = new byte[pct.Length * 3];
+            for (int x = 0; x < pct.Width; x++)
+            {
+                MColumn col = pct.Columns[x];
+                int y = (int)col.TopDelta;
+                int offset = (x + y * pct.Width) * 3;
+
+                for (int j = 0; j < col.Length; j++)
+                {
+                    byte b = col.Data[j];
+                    MColor mcol = colors[b];
+                    pixels[offset + (j * pct.Width * 3)] = mcol.R;
+                    pixels[offset + (j * pct.Width * 3) + 1] = mcol.G;
+                    pixels[offset + (j * pct.Width * 3) + 2] = mcol.B;
+                }
+            }
+
+            BitmapSource bitmapSource = BitmapSource.Create(pct.Width, pct.Height, 96, 96, PixelFormats.Rgb24, null, pixels, pct.Width * 3);
             panel_bitmap.Children.Clear();
-            draw.image(pct, 0, 0, panel_bitmap);
+            draw.image(bitmapSource, 0, 0, panel_bitmap);
         }
 
         private void render_palette(uint palette, uint colormap)
@@ -109,8 +174,6 @@ namespace IDEngine
             var dest = vtx.Scale_Vertexes(20, 20, panel.ActualWidth - 40, panel.ActualHeight - 40);
             draw.rect(20, 20, panel.ActualWidth - 40, panel.ActualHeight - 40, panel);
 
-
-            list_points.ItemsSource = dest;
             lbl_screen.Content = vtx.BBoxString();
             foreach (var v in dest)
             {
@@ -231,10 +294,8 @@ namespace IDEngine
             Canvas.SetTop(rect, ay);
         }
 
-        public static void image(Picture pct, double ax, double ay, Canvas cv)
+        public static void image(BitmapSource bm, double ax, double ay, Canvas cv)
         {
-            BitmapImage bm = new BitmapImage();
-
             Image img = new Image();
             img.Source = bm;
 

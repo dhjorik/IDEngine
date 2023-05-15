@@ -13,7 +13,7 @@ namespace WAD.WADFiles.Bitmaps
         private uint _Index = 0;
 
         private string _Name = "";
-        private Picture _Picture = null;
+        private MPicture _Picture = null;
 
         public MPatch(WADReader reader, uint index)
         {
@@ -27,11 +27,11 @@ namespace WAD.WADFiles.Bitmaps
         {
             Entry entry = _Reader.Entries.LumpByIndex(this._Index);
             _Name = entry.Name;
-            _Picture = new Picture(_Reader, _Name);
+            _Picture = new MPicture(_Reader, _Name);
         }
 
         public string Name { get { return _Name; } }
-        public Picture Picture { get { return _Picture; } }
+        public MPicture Picture { get { return _Picture; } }
         
         public override string ToString()
         {

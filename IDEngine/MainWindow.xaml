@@ -31,7 +31,8 @@
         <ListView x:Name="list_screen" Background="LightGreen" Grid.Row="0" Grid.Column="1"></ListView>
         <ListView x:Name="list_maps" Background="LightBlue" SelectionChanged="list_maps_SelectionChanged"
                   Grid.Row="0" Grid.Column="2"></ListView>
-        <ListView x:Name="list_points" Background="LightGray" Grid.Row="0" Grid.Column="3"></ListView>
+        <ListView x:Name="list_flats" Background="LightGray" SelectionChanged="list_flats_SelectionChanged"
+                  Grid.Row="0" Grid.Column="3"></ListView>
         <ListView x:Name="list_textures" Background="LightYellow" SelectionChanged="list_textures_SelectionChanged"
                   Grid.Row="0" Grid.Column="4"></ListView>
 

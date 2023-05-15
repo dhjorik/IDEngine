@@ -12,6 +12,7 @@ namespace WAD.WADFiles.Bitmaps
         private uint _Index = 0;
 
         private string _Name = "";
+        public uint _Length = 0;
         private byte[] _Data = null;
 
         public MFlat(WADReader reader, uint index)
@@ -27,9 +28,15 @@ namespace WAD.WADFiles.Bitmaps
             Entry entry = _Reader.Entries.LumpByIndex(this._Index);
             _Name = entry.Name;
             uint offset = entry.Offset;
-            uint lenght = entry.Size;
-            _Data = _Reader.ToByteArray(offset, lenght);
+            _Length = entry.Size;
+            _Data = _Reader.ToByteArray(offset, _Length);
         }
+
+        public uint Length { get => _Length; }
+        public int Width { get => 64; }
+        public int Height { get => (int)_Length / 64; }
+
+        public byte[] Data { get => _Data; }
 
         public override string ToString()
         {

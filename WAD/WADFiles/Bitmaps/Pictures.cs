@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace WAD.WADFiles.Bitmaps
 {
-    public class Column : IElement
+    public class MColumn : IElement
     {
         private WADReader _Reader { get; }
         private uint _Start = 0;
@@ -20,7 +20,7 @@ namespace WAD.WADFiles.Bitmaps
         private byte[] _Data = null;
         private byte[] _Unused = new byte[2];
 
-        public Column(WADReader reader, uint start, uint index)
+        public MColumn(WADReader reader, uint start, uint index)
         {
             _Reader = reader;
             _Start = start;
@@ -38,6 +38,11 @@ namespace WAD.WADFiles.Bitmaps
             _Data = _Reader.ToByteArray(offset + 3, _Length);
             _Unused[1] = _Reader.ToUInt8(offset + 3 + _Length);
         }
+
+        public uint TopDelta { get => (uint)_TopDelta; }
+        public uint Length { get => (uint)_Length; }
+
+        public byte[] Data { get => _Data; }
 
         public override string ToString()
         {
@@ -61,7 +66,7 @@ namespace WAD.WADFiles.Bitmaps
         }
     }
 
-    public class Picture : IElements
+    public class MPicture : IElements
     {
         private WADReader _Reader { get; }
         private string _Name { get; }
@@ -72,9 +77,9 @@ namespace WAD.WADFiles.Bitmaps
         private short _OffsetX = 0;
         private short _OffsetY = 0;
 
-        private List<Column> _Columns = null;
+        private List<MColumn> _Columns = null;
 
-        public Picture(WADReader reader, string name)
+        public MPicture(WADReader reader, string name)
         {
             _Reader = reader;
             _Name = name;
@@ -94,20 +99,23 @@ namespace WAD.WADFiles.Bitmaps
                 _OffsetX = _Reader.ToInt16(offset + 4);
                 _OffsetY = _Reader.ToInt16(offset + 6);
 
-                _Columns = new List<Column>();
+                _Columns = new List<MColumn>();
                 for (uint i = 0; i < _Width; i++)
                 {
                     uint ofs = _Reader.ToUInt32(offset + 8 + i * 4);
-                    Column column = new Column(_Reader, offset + ofs, i);
+                    MColumn column = new MColumn(_Reader, offset + ofs, i);
                     _Columns.Add(column);
                 }
             }
         }
 
+        public uint Length { get => (uint)_Width * (uint)_Height; }
         public ushort Width { get => _Width; }
         public ushort Height { get => _Height; }
         public short OffsetX { get => _OffsetX; }
         public short OffsetY { get => _OffsetY; }
+
+        public List<MColumn> Columns { get => _Columns; }
 
         public override string ToString()
         {
@@ -125,7 +133,7 @@ namespace WAD.WADFiles.Bitmaps
             sb.Append(_OffsetY);
             sb.AppendLine("");
 
-            foreach (Column column in _Columns)
+            foreach (MColumn column in _Columns)
             {
                 sb.Append(column.ToString());
             }
