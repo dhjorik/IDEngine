@@ -103,8 +103,15 @@ namespace WAD.WADFiles.Bitmaps
                 for (uint i = 0; i < _Width; i++)
                 {
                     uint ofs = _Reader.ToUInt32(offset + 8 + i * 4);
-                    MColumn column = new MColumn(_Reader, offset + ofs, i);
-                    _Columns.Add(column);
+                    uint delta = 0;
+                    uint top = _Reader.ToUInt8(offset + ofs + delta);
+                    while(top != 0xff){
+                        MColumn column = new MColumn(_Reader, offset + ofs, i);
+                        _Columns.Add(column);
+
+                        delta += column.Length + 4;
+                        top = _Reader.ToUInt8(offset + ofs + delta);
+                    }
                 }
             }
         }
