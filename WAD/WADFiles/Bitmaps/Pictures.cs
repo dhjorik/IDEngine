@@ -44,6 +44,8 @@ namespace WAD.WADFiles.Bitmaps
 
         public byte[] Data { get => _Data; }
 
+        public MColumn Next { get; set; } = null;
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -62,6 +64,10 @@ namespace WAD.WADFiles.Bitmaps
             }
             sb.AppendLine("]");
 
+            if (Next != null)
+            {
+                sb.Append(Next.ToString());
+            }
             return sb.ToString();
         }
     }
@@ -105,9 +111,21 @@ namespace WAD.WADFiles.Bitmaps
                     uint ofs = _Reader.ToUInt32(offset + 8 + i * 4);
                     uint delta = 0;
                     uint top = _Reader.ToUInt8(offset + ofs + delta);
-                    while(top != 0xff){
-                        MColumn column = new MColumn(_Reader, offset + ofs, i);
-                        _Columns.Add(column);
+                    MColumn preview = null;
+
+                    while (top != 0xff)
+                    {
+                        MColumn column = new MColumn(_Reader, offset + ofs + delta, i);
+                        if (preview == null)
+                        {
+                            _Columns.Add(column);
+                            preview = column;
+                        }
+                        else
+                        {
+                            preview.Next = column;
+                            preview = column;
+                        }
 
                         delta += column.Length + 4;
                         top = _Reader.ToUInt8(offset + ofs + delta);

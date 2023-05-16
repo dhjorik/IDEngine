@@ -28,7 +28,7 @@ namespace IDEngine
 
         // readonly string wad_path = @"C:\Developer\ProjectsB\Sharping\IDEngine";
         // readonly string wad_path = @"C:\Pythons\projects\sharps\IDEngine";
-        readonly string wad_file = @"WADs\DOOM.WAD";
+        readonly string wad_file = @"WADs\DOOM2.WAD";
         readonly WADReader rdr = null;
 
         public MainWindow()
@@ -46,9 +46,12 @@ namespace IDEngine
 
             lbl_screen.Content = rdr.Header.ToString();
             list_screen.ItemsSource = rdr.Entries.ListToStrings();
+
             list_maps.ItemsSource = rdr.Maps.names;
             list_flats.ItemsSource = rdr.Images.Flats.Flats;
-            list_textures.ItemsSource = rdr.Images.Patches.Patches;
+            list_textures.ItemsSource = rdr.Images.Textures.Textures;
+            list_patches.ItemsSource = rdr.Images.Patches.Patches;
+            list_sprites.ItemsSource = rdr.Images.Sprites.Sprites;
         }
 
         private void list_maps_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -123,16 +126,68 @@ namespace IDEngine
             for (int x = 0; x < pct.Width; x++)
             {
                 MColumn col = pct.Columns[x];
-                int y = (int)col.TopDelta;
-                int offset = (x + y * pct.Width) * 3;
-
-                for (int j = 0; j < col.Length; j++)
+                while (col != null)
                 {
-                    byte b = col.Data[j];
-                    MColor mcol = colors[b];
-                    pixels[offset + (j * pct.Width * 3)] = mcol.R;
-                    pixels[offset + (j * pct.Width * 3) + 1] = mcol.G;
-                    pixels[offset + (j * pct.Width * 3) + 2] = mcol.B;
+                    int y = (int)col.TopDelta;
+                    int offset = (x + y * pct.Width) * 3;
+
+                    for (int j = 0; j < col.Length; j++)
+                    {
+                        byte b = col.Data[j];
+                        MColor mcol = colors[b];
+                        pixels[offset + (j * pct.Width * 3)] = mcol.R;
+                        pixels[offset + (j * pct.Width * 3) + 1] = mcol.G;
+                        pixels[offset + (j * pct.Width * 3) + 2] = mcol.B;
+                    }
+                    col = col.Next;
+                }
+            }
+
+            BitmapSource bitmapSource = BitmapSource.Create(pct.Width, pct.Height, 96, 96, PixelFormats.Rgb24, null, pixels, pct.Width * 3);
+            panel_bitmap.Children.Clear();
+            draw.image(bitmapSource, 0, 0, panel_bitmap);
+        }
+
+        private void list_patches_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
+        private void list_sprites_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            MSprite sel_value = list_sprites.SelectedValue as MSprite;
+            MPicture pct = sel_value.Picture;
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Sprite name: ");
+            sb.Append(pct.ToString());
+            sb.Append(" - ");
+            sb.AppendLine(sel_value.ToString());
+            lbl_screen.Content = sb.ToString();
+
+            var pal = rdr.Palettes.GetPalette(0, 0);
+
+            List<MColor> colors = new List<MColor>();
+            for (int i = 0; i < 256; i++)
+            {
+                MColor mcol = pal[i];
+                colors.Add(mcol);
+            }
+
+
+            byte[] pixels = new byte[pct.Length * 3];
+            for (int x = 0; x < pct.Width; x++)
+            {
+                MColumn col = pct.Columns[x];
+                while (col != null)
+                {
+                    int y = (int)col.TopDelta;
+                    int offset = (x + y * pct.Width) * 3;
+
+                    for (int j = 0; j < col.Length; j++)
+                    {
+                        byte b = col.Data[j];
+                        MColor mcol = colors[b];
+                        pixels[offset + (j * pct.Width * 3)] = mcol.R;
+                        pixels[offset + (j * pct.Width * 3) + 1] = mcol.G;
+                        pixels[offset + (j * pct.Width * 3) + 2] = mcol.B;
+                    }
+                    col = col.Next;
                 }
             }
 

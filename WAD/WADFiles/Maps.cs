@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static WAD.Settings;
 using WAD.WADFiles.Levels;
+using System.Reflection.Emit;
 
 namespace WAD.WADFiles
 {
@@ -132,11 +133,38 @@ namespace WAD.WADFiles
 
         public void Decode()
         {
-            // Episode + Level Mode
-            for (int episode = 1; episode < 10; episode++)
-                for (int level = 1; level < 10; level++)
+            string maptest = Map.Name(1, 1);
+            bool MapMode = _Reader.Entries.HasLumpByName(maptest);
+
+            if (MapMode)
+            {
+                // Episode + Level Mode
+                for (int episode = 1; episode < 10; episode++)
                 {
-                    string name = Map.Name(level, episode);
+                    for (int level = 1; level < 10; level++)
+                    {
+                        string name = Map.Name(level, episode);
+                        bool found = _Reader.Entries.HasLumpByName(name);
+                        if (found)
+                        {
+#if DEBUG
+                            Console.Write("Map: ");
+                            Console.Write(name);
+                            Console.Write(" - ");
+                            Console.WriteLine("found");
+#endif
+                            Map value = new Map(_Reader, level, episode);
+                            _Maps.Add(name, value);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // Level Mode
+                for (int level = 1; level < 100; level++)
+                {
+                    string name = Map.Name(level, 0);
                     bool found = _Reader.Entries.HasLumpByName(name);
                     if (found)
                     {
@@ -146,10 +174,12 @@ namespace WAD.WADFiles
                         Console.Write(" - ");
                         Console.WriteLine("found");
 #endif
-                        Map value = new Map(_Reader, level, episode);
+                        Map value = new Map(_Reader, level, 0);
                         _Maps.Add(name, value);
                     }
                 }
+            }
+
         }
 
         public Map MapByName(string name) { return _Maps[name]; }
