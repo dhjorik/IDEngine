@@ -21,6 +21,8 @@ namespace IDEngine
     /// https://doomwiki.org/
     /// https://oldgamesdownload.com/duke-nukem-3d/
     /// https://en.wikipedia.org/wiki/Quake_engine
+    /// http://www.wolfensteingoodies.com/archives/olddoom/music.htm
+    /// 
     public partial class MainWindow : Window
     {
         uint current_palette = 0;
@@ -28,7 +30,7 @@ namespace IDEngine
 
         // readonly string wad_path = @"C:\Developer\ProjectsB\Sharping\IDEngine";
         // readonly string wad_path = @"C:\Pythons\projects\sharps\IDEngine";
-        readonly string wad_file = @"WADs\DOOM2.WAD";
+        readonly string wad_file = @"WADs\DOOM.WAD";
         readonly WADReader rdr = null;
 
         public MainWindow()
