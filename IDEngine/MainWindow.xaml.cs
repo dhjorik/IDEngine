@@ -8,11 +8,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
+
 using WAD;
-using WAD.WADFiles;
-using WAD.WADFiles.Bitmaps;
-using WAD.WADFiles.Colors;
-using WAD.WADFiles.Levels;
+using WAD.Doom;
+using WAD.Doom.Bitmaps;
+using WAD.Doom.Colors;
+using WAD.Doom.Levels;
+using WAD.Doom.Sounds;
+
+using NAudio.Wave;
 
 namespace IDEngine
 {
@@ -30,8 +34,15 @@ namespace IDEngine
 
         // readonly string wad_path = @"C:\Developer\ProjectsB\Sharping\IDEngine";
         // readonly string wad_path = @"C:\Pythons\projects\sharps\IDEngine";
+
         readonly string wad_file = @"WADs\DOOM.WAD";
+        //readonly string wad_file = @"WADs\DOOM2.WAD";
+        //readonly string wad_file = @"WADs\HERETIC.WAD";
+        //readonly string wad_file = @"WADs\HEXEN.WAD";
+
         readonly WADReader rdr = null;
+
+        IWavePlayer waveout = new WaveOut(WaveCallbackInfo.FunctionCallback());
 
         public MainWindow()
         {
@@ -49,11 +60,37 @@ namespace IDEngine
             lbl_screen.Content = rdr.Header.ToString();
             list_screen.ItemsSource = rdr.Entries.ListToStrings();
 
+            //StringBuilder sb=new StringBuilder();
+            //foreach(Entry s in rdr.Entries.ListEntries)
+            //{
+            //    if (s.Name.StartsWith("DS"))
+            //    {
+            //        sb.Append(s.Name);
+            //        sb.Append(":");
+            //        sb.AppendLine(s.Index.ToString());
+            //    }
+            //    if (s.Name.StartsWith("DP"))
+            //    {
+            //        sb.Append(s.Name);
+            //        sb.Append(":");
+            //        sb.AppendLine(s.Index.ToString());
+            //    }
+            //    if (s.Name.StartsWith("D_"))
+            //    {
+            //        sb.Append(s.Name);
+            //        sb.Append(":");
+            //        sb.AppendLine(s.Index.ToString());
+            //    }
+            //}
+            //Console.WriteLine(sb.ToString());
+            //lbl_log.Content = sb.ToString();
+
             list_maps.ItemsSource = rdr.Maps.names;
             list_flats.ItemsSource = rdr.Images.Flats.Flats;
             list_textures.ItemsSource = rdr.Images.Textures.Textures;
             list_patches.ItemsSource = rdr.Images.Patches.Patches;
             list_sprites.ItemsSource = rdr.Images.Sprites.Sprites;
+            list_sounds.ItemsSource = rdr.Audio.Samples.Samples;
         }
 
         private void list_maps_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -104,7 +141,53 @@ namespace IDEngine
 
         private void list_textures_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MPatch sel_value = list_textures.SelectedValue as MPatch;
+            MTexture sel_value = list_textures.SelectedValue as MTexture;
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Texture name: ");
+            sb.AppendLine(sel_value.ToString());
+            lbl_screen.Content = sb.ToString();
+
+            var pal = rdr.Palettes.GetPalette(0, 0);
+
+            List<MColor> colors = new List<MColor>();
+            for (int i = 0; i < 256; i++)
+            {
+                MColor mcol = pal[i];
+                colors.Add(mcol);
+            }
+
+            byte[] pixels = new byte[pct.Length * 3];
+
+            MPicture pct = sel_value.Picture;
+            for (int x = 0; x < pct.Width; x++)
+            {
+                MColumn col = pct.Columns[x];
+                while (col != null)
+                {
+                    int y = (int)col.TopDelta;
+                    int offset = (x + y * pct.Width) * 3;
+
+                    for (int j = 0; j < col.Length; j++)
+                    {
+                        byte b = col.Data[j];
+                        MColor mcol = colors[b];
+                        pixels[offset + (j * pct.Width * 3)] = mcol.R;
+                        pixels[offset + (j * pct.Width * 3) + 1] = mcol.G;
+                        pixels[offset + (j * pct.Width * 3) + 2] = mcol.B;
+                    }
+                    col = col.Next;
+                }
+            }
+
+            BitmapSource bitmapSource = BitmapSource.Create(pct.Width, pct.Height, 96, 96, PixelFormats.Rgb24, null, pixels, pct.Width * 3);
+            panel_bitmap.Children.Clear();
+            draw.image(bitmapSource, 0, 0, panel_bitmap);
+        }
+
+        private void list_patches_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MPatch sel_value = list_patches.SelectedValue as MPatch;
             MPicture pct = sel_value.Picture;
 
             StringBuilder sb = new StringBuilder();
@@ -122,7 +205,6 @@ namespace IDEngine
                 MColor mcol = pal[i];
                 colors.Add(mcol);
             }
-
 
             byte[] pixels = new byte[pct.Length * 3];
             for (int x = 0; x < pct.Width; x++)
@@ -150,8 +232,8 @@ namespace IDEngine
             draw.image(bitmapSource, 0, 0, panel_bitmap);
         }
 
-        private void list_patches_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
-        private void list_sprites_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+        private void list_sprites_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
             MSprite sel_value = list_sprites.SelectedValue as MSprite;
             MPicture pct = sel_value.Picture;
 
@@ -171,7 +253,6 @@ namespace IDEngine
                 colors.Add(mcol);
             }
 
-
             byte[] pixels = new byte[pct.Length * 3];
             for (int x = 0; x < pct.Width; x++)
             {
@@ -198,6 +279,40 @@ namespace IDEngine
             draw.image(bitmapSource, 0, 0, panel_bitmap);
         }
 
+        private void list_screen_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void list_sounds_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MSample sel_value = list_sounds.SelectedValue as MSample;
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Sample: ");
+            sb.AppendLine(sel_value.ToString());
+            lbl_sound.Content = sb.ToString();
+
+            WaveFormat waveFormat = new WaveFormat(sel_value.Rate, 8, 1);
+            BufferedWaveProvider bufferedWaveProvider = new BufferedWaveProvider(waveFormat);
+            bufferedWaveProvider.AddSamples(sel_value.Samples, 0, (int)sel_value.Length);
+            waveout.Dispose();
+            waveout.Init(bufferedWaveProvider);
+            waveout.Play();
+        }
+
+        private void btn_sound_Click(object sender, RoutedEventArgs e)
+        {
+            MSample sel_value = list_sounds.SelectedValue as MSample;
+            if (sel_value == null) return;
+
+            WaveFormat waveFormat = new WaveFormat(sel_value.Rate, 8, 1);
+            BufferedWaveProvider bufferedWaveProvider = new BufferedWaveProvider(waveFormat);
+            bufferedWaveProvider.AddSamples(sel_value.Samples, 0, (int)sel_value.Length);
+            waveout.Dispose();
+            waveout.Init(bufferedWaveProvider);
+            waveout.Play();
+        }
         private void render_palette(uint palette, uint colormap)
         {
             panel_palette.Children.Clear();
@@ -234,7 +349,7 @@ namespace IDEngine
             lbl_screen.Content = vtx.BBoxString();
             foreach (var v in dest)
             {
-                draw.circle(v.X, v.Y, 3.0, panel);
+                draw.circle(v.X, v.Y, 2.0, panel);
             }
 
             foreach (var ln in lnx.Lines)
@@ -267,6 +382,7 @@ namespace IDEngine
                 current_map = 0;
             }
         }
+
     }
 
     internal class draw
@@ -300,7 +416,7 @@ namespace IDEngine
         {
             Brush stroke = color;
             if (color == null)
-                stroke = Brushes.LightSeaGreen;
+                stroke = Brushes.White;
             Line line = new Line()
             {
                 X1 = ax,

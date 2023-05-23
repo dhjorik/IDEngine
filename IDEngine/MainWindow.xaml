@@ -10,6 +10,7 @@
         MinWidth="1200" MinHeight="600" MaxWidth="1600" MaxHeight="900">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
             <RowDefinition Height="600"/>
             <RowDefinition Height="100*"/>
             <RowDefinition Height="50*"/>
@@ -22,28 +23,51 @@
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
-        <Canvas x:Name="panel" Background="Black" Grid.Row="0" Grid.Column="0"></Canvas>
-        <Canvas x:Name="panel_bitmap" Background="Black" Grid.Row="1" Grid.Column="0" Grid.RowSpan="2"></Canvas>
-        <Canvas x:Name="panel_palette" Background="Black" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"
+        <Canvas x:Name="panel" Background="Black" Grid.Row="1" Grid.Column="0"></Canvas>
+        <Canvas x:Name="panel_bitmap" Background="Black" Grid.Row="2" Grid.Column="0" Grid.RowSpan="2"></Canvas>
+        <Canvas x:Name="panel_palette" Background="Black" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3"
                 MouseLeftButtonUp="panel_palette_MouseLeftButtonUp"></Canvas>
-        <Canvas x:Name="panel_colormap" Background="Black" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="3"
+        <Canvas x:Name="panel_colormap" Background="Black" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="3"
                 MouseLeftButtonUp="panel_colormap_MouseLeftButtonUp"></Canvas>
 
-        <ListView x:Name="list_screen" Background="LightGreen" Grid.Row="0" Grid.Column="1"></ListView>
-        <ListView x:Name="list_maps" Background="LightBlue" SelectionChanged="list_maps_SelectionChanged"
-                  Grid.Row="0" Grid.Column="2"></ListView>
-        <ListView x:Name="list_flats" Background="LightGray" SelectionChanged="list_flats_SelectionChanged"
-                  Grid.Row="0" Grid.Column="3"></ListView>
-        <ListView x:Name="list_textures" Background="LightYellow" SelectionChanged="list_textures_SelectionChanged"
-                  Grid.Row="0" Grid.Column="4"></ListView>
-        <ListView x:Name="list_patches" Background="LightYellow" SelectionChanged="list_patches_SelectionChanged"
-                  Grid.Row="0" Grid.Column="5"></ListView>
-        <ListView x:Name="list_sprites" Background="LightYellow" SelectionChanged="list_sprites_SelectionChanged"
-                  Grid.Row="0" Grid.Column="6"></ListView>
+        <Label Grid.Row="0" Grid.Column="1" Content="Lumps"/>
+        <Label Grid.Row="0" Grid.Column="2" Content="Maps"/>
+        <Label Grid.Row="0" Grid.Column="3" Content="Flats"/>
+        <Label Grid.Row="0" Grid.Column="4" Content="Textures"/>
+        <Label Grid.Row="0" Grid.Column="5" Content="Patches"/>
+        <Label Grid.Row="0" Grid.Column="6" Content="Sprites"/>
+        <Label Grid.Row="0" Grid.Column="7" Content="Sounds"/>
 
-        <Label x:Name="lbl_screen" Grid.Row="1" Grid.Column="2"  Grid.ColumnSpan="5"
+        <ListView x:Name="list_screen" Background="LightGreen" SelectionChanged="list_screen_SelectionChanged"
+                  Grid.Row="1" Grid.Column="1"></ListView>
+        <ListView x:Name="list_maps" Background="LightBlue" SelectionChanged="list_maps_SelectionChanged"
+                  Grid.Row="1" Grid.Column="2"></ListView>
+        <ListView x:Name="list_flats" Background="LightGray" SelectionChanged="list_flats_SelectionChanged"
+                  Grid.Row="1" Grid.Column="3"></ListView>
+        <ListView x:Name="list_textures" Background="LightYellow" SelectionChanged="list_textures_SelectionChanged"
+                  Grid.Row="1" Grid.Column="4"></ListView>
+        <ListView x:Name="list_patches" Background="LightYellow" SelectionChanged="list_patches_SelectionChanged"
+                  Grid.Row="1" Grid.Column="5"></ListView>
+        <ListView x:Name="list_sprites" Background="LightYellow" SelectionChanged="list_sprites_SelectionChanged"
+                  Grid.Row="1" Grid.Column="6"></ListView>
+        <ListView x:Name="list_sounds" Background="LemonChiffon" SelectionChanged="list_sounds_SelectionChanged"
+                  Grid.Row="1" Grid.Column="7"></ListView>
+
+        <Label x:Name="lbl_log" Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="2"
                ScrollViewer.CanContentScroll="True"
-               Background="Green" Foreground="White" Content="Log:" ScrollViewer.HorizontalScrollBarVisibility="Auto"></Label>
+               Background="Chocolate" Foreground="Black" Content="Log:"
+               ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"></Label>
+        <Label x:Name="lbl_screen" Grid.Row="2" Grid.Column="3"  Grid.ColumnSpan="4"
+               ScrollViewer.CanContentScroll="True"
+               Background="Green" Foreground="White" Content="Screen:"
+               ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"></Label>
+        <Label x:Name="lbl_sound" Grid.Row="2" Grid.Column="7"
+               ScrollViewer.CanContentScroll="True"
+               Background="Blue" Foreground="White" Content="Sounds:"
+               ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"></Label>
+
+        <Button x:Name="btn_sound" Grid.Row="3" Grid.Column="7" Content="Play" Click="btn_sound_Click"></Button>
     </Grid>
 </Window>

@@ -18,7 +18,6 @@ namespace WAD
         private uint _Size = 0;
         private string _Name = "";
 
-
         public Entry(WADReader reader, uint offset, uint index)
         {
             _Reader = reader;
@@ -139,6 +138,19 @@ namespace WAD
         }
 
         public List<Entry> ListEntries { get => _Entries; }
+
+        public List<string> ListNames
+        {
+            get
+            {
+                List<string> names = new List<string> ();
+                foreach (Entry entry in _Entries)
+                {
+                    names.Add(entry.Name);
+                }
+                return names;
+            }
+        }
 
         public List<string> ListToStrings()
         {

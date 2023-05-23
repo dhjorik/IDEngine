@@ -6,8 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using WAD.WADFiles;
-using WAD.WADFiles.Colors;
+using WAD.Doom;
+using WAD.Doom.Colors;
 
 namespace WAD
 {
@@ -21,6 +21,7 @@ namespace WAD
         private Maps _Maps = null;
         private Palettes _Palettes = null;
         private Images _Images = null;
+        private Audio _Audio = null;
 
         public WADReader(string wad_path)
         {
@@ -44,6 +45,7 @@ namespace WAD
         public Maps Maps { get => _Maps; }
         public Palettes Palettes { get => _Palettes; }
         public Images Images { get => _Images; }
+        public Audio Audio { get => _Audio; }
 
         private void Read_Header()
         {
@@ -68,6 +70,11 @@ namespace WAD
         private void Read_Images()
         {
             _Images = new Images(this);
+        }
+
+        private void Read_Audio()
+        {
+            _Audio = new Audio(this);
         }
 
         private void Bufferize()
@@ -133,6 +140,7 @@ namespace WAD
             this.Read_Maps();
             this.Read_Colors();
             this.Read_Images();
+            this.Read_Audio();
         }
 
         public string ToString(uint offset, int size)

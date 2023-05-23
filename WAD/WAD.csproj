@@ -41,33 +41,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Doom\Sounds\Musics.cs" />
     <Compile Include="Reader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Entries.cs" />
-    <Compile Include="WADFiles\Audio.cs" />
-    <Compile Include="WADFiles\Bitmaps\Patches.cs" />
-    <Compile Include="WADFiles\Bitmaps\Pictures.cs" />
-    <Compile Include="WADFiles\Bitmaps\Sprites.cs" />
-    <Compile Include="WADFiles\Bitmaps\Flats.cs" />
-    <Compile Include="WADFiles\Bitmaps\Textures.cs" />
-    <Compile Include="WADFiles\Bitmaps\Walls.cs" />
-    <Compile Include="WADFiles\Images.cs" />
-    <Compile Include="WADFiles\Palettes.cs" />
-    <Compile Include="WADFiles\Colors\ColorMaps.cs" />
-    <Compile Include="WADFiles\Colors\PlayPalettes.cs" />
-    <Compile Include="WADFiles\Headers.cs" />
-    <Compile Include="WADFiles\Levels\Nodes.cs" />
-    <Compile Include="WADFiles\Levels\SSectors.cs" />
-    <Compile Include="WADFiles\Levels\Sectors.cs" />
-    <Compile Include="WADFiles\Levels\Segs.cs" />
-    <Compile Include="WADFiles\Levels\Sidedefs.cs" />
-    <Compile Include="WADFiles\Levels\Things.cs" />
-    <Compile Include="WADFiles\Levels\Lines.cs" />
-    <Compile Include="WADFiles\Maps.cs" />
-    <Compile Include="WADFiles\Levels\Vertexes.cs" />
+    <Compile Include="Doom\Audio.cs" />
+    <Compile Include="Doom\Bitmaps\Patches.cs" />
+    <Compile Include="Doom\Bitmaps\Pictures.cs" />
+    <Compile Include="Doom\Bitmaps\Sprites.cs" />
+    <Compile Include="Doom\Bitmaps\Flats.cs" />
+    <Compile Include="Doom\Bitmaps\Textures.cs" />
+    <Compile Include="Doom\Bitmaps\Walls.cs" />
+    <Compile Include="Doom\Images.cs" />
+    <Compile Include="Doom\Palettes.cs" />
+    <Compile Include="Doom\Colors\ColorMaps.cs" />
+    <Compile Include="Doom\Colors\PlayPalettes.cs" />
+    <Compile Include="Doom\Headers.cs" />
+    <Compile Include="Doom\Levels\Nodes.cs" />
+    <Compile Include="Doom\Levels\SSectors.cs" />
+    <Compile Include="Doom\Levels\Sectors.cs" />
+    <Compile Include="Doom\Levels\Segs.cs" />
+    <Compile Include="Doom\Levels\Sidedefs.cs" />
+    <Compile Include="Doom\Levels\Things.cs" />
+    <Compile Include="Doom\Levels\Lines.cs" />
+    <Compile Include="Doom\Maps.cs" />
+    <Compile Include="Doom\Levels\Vertexes.cs" />
     <Compile Include="Elements.cs" />
-    <Compile Include="WADFiles\Sounds\Samples.cs" />
+    <Compile Include="Doom\Infos.cs" />
+    <Compile Include="Doom\Sounds\Samples.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -136,6 +136,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NAudio.Core\NAudio.Core.csproj">
+      <Project>{89f21844-dbb2-4ded-a0b5-a811e06b71ae}</Project>
+      <Name>NAudio.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NAudio.Windows\NAudio.Windows.csproj">
+      <Project>{447a90b9-c125-4f1f-88ed-a3e1d7498ffb}</Project>
+      <Name>NAudio.Windows</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NAudio.WinMM\NAudio.WinMM.csproj">
+      <Project>{d018ed50-e0ff-428e-b244-e9ef93679d46}</Project>
+      <Name>NAudio.WinMM</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WAD\WAD.csproj">
       <Project>{5daa515d-9cc3-497c-a0d7-45628d370b7d}</Project>
       <Name>WAD</Name>
