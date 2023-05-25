@@ -38,6 +38,17 @@ namespace WAD.Doom.Bitmaps
             _ColorMap = _Reader.ToUInt16(_Start + 8);
         }
 
+        public uint PatchID { get => _PatchIndex; }
+        public MPatch Patch
+        {
+            get
+            {
+                var Patches = _Reader.Images.Patches;
+                MPatch result = Patches.PatchByIndex(_PatchIndex);
+                return result;
+            }
+        }
+
         public static uint LSize => sizeof(short) + sizeof(short) + sizeof(ushort) + sizeof(short) + sizeof(ushort);
     }
 
@@ -92,7 +103,10 @@ namespace WAD.Doom.Bitmaps
 
         public string Name { get => _Name; }
 
+        public ushort Width { get => _Width; }
+        public ushort Height { get => _Height; }
         public uint Length { get => (uint)_Width * (uint)_Height; }
+        public List<MTexPatch> Patches { get => _Patches; }
 
         public override string ToString()
         {

@@ -157,30 +157,34 @@ namespace IDEngine
                 colors.Add(mcol);
             }
 
-            byte[] pixels = new byte[pct.Length * 3];
+            byte[] pixels = new byte[sel_value.Length * 3];
 
-            MPicture pct = sel_value.Picture;
-            for (int x = 0; x < pct.Width; x++)
+            foreach(MTexPatch texptc in sel_value.Patches)
             {
-                MColumn col = pct.Columns[x];
-                while (col != null)
+                MPatch Patch = texptc.Patch;
+                MPicture pct = Patch.Picture;
+                for (int x = 0; x < pct.Width; x++)
                 {
-                    int y = (int)col.TopDelta;
-                    int offset = (x + y * pct.Width) * 3;
-
-                    for (int j = 0; j < col.Length; j++)
+                    MColumn col = pct.Columns[x];
+                    while (col != null)
                     {
-                        byte b = col.Data[j];
-                        MColor mcol = colors[b];
-                        pixels[offset + (j * pct.Width * 3)] = mcol.R;
-                        pixels[offset + (j * pct.Width * 3) + 1] = mcol.G;
-                        pixels[offset + (j * pct.Width * 3) + 2] = mcol.B;
+                        int y = (int)col.TopDelta;
+                        int offset = (x + y * pct.Width) * 3;
+
+                        for (int j = 0; j < col.Length; j++)
+                        {
+                            byte b = col.Data[j];
+                            MColor mcol = colors[b];
+                            pixels[offset + (j * pct.Width * 3)] = mcol.R;
+                            pixels[offset + (j * pct.Width * 3) + 1] = mcol.G;
+                            pixels[offset + (j * pct.Width * 3) + 2] = mcol.B;
+                        }
+                        col = col.Next;
                     }
-                    col = col.Next;
                 }
             }
 
-            BitmapSource bitmapSource = BitmapSource.Create(pct.Width, pct.Height, 96, 96, PixelFormats.Rgb24, null, pixels, pct.Width * 3);
+            BitmapSource bitmapSource = BitmapSource.Create(sel_value.Width, sel_value.Height, 96, 96, PixelFormats.Rgb24, null, pixels, sel_value.Width * 3);
             panel_bitmap.Children.Clear();
             draw.image(bitmapSource, 0, 0, panel_bitmap);
         }
