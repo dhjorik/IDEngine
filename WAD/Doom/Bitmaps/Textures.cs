@@ -31,20 +31,29 @@ namespace WAD.Doom.Bitmaps
 
         public void Decode()
         {
-            _OriginX = _Reader.ToInt16(_Start);
-            _OriginY = _Reader.ToInt16(_Start + 2);
-            _PatchIndex = _Reader.ToUInt16(_Start + 4);
-            _StepDir = _Reader.ToInt16(_Start + 6);
-            _ColorMap = _Reader.ToUInt16(_Start + 8);
+            uint offset = _Start + _Offset;
+            _OriginX = _Reader.ToInt16(offset);
+            _OriginY = _Reader.ToInt16(offset + 2);
+            _PatchIndex = _Reader.ToUInt16(offset + 4);
+            _StepDir = _Reader.ToInt16(offset + 6);
+            _ColorMap = _Reader.ToUInt16(offset + 8);
         }
+
+        public short OriginX { get => _OriginX; }
+        public short OriginY { get => _OriginY; }
 
         public uint PatchID { get => _PatchIndex; }
         public MPatch Patch
         {
             get
             {
+                var Walls = _Reader.Images.Walls;
+                var wresult = Walls.PatchByIndex(_PatchIndex);
                 var Patches = _Reader.Images.Patches;
-                MPatch result = Patches.PatchByIndex(_PatchIndex);
+                var result = Patches.PatchByName(wresult.Name);
+                Console.Write(wresult.Name);
+                Console.Write(" - ");
+                Console.WriteLine(result.Name);
                 return result;
             }
         }
@@ -117,35 +126,33 @@ namespace WAD.Doom.Bitmaps
     public class MTextures : IElements
     {
         private WADReader _Reader { get; }
-        private Entry _Entry { get; }
+        private List<Entry> _Entry { get; }
         private List<MTexture> _Textures = null;
 
         public MTextures(WADReader reader, Entry entry)
         {
-            _Entry = entry;
+            _Entry = new List<Entry>();
             _Reader = reader;
+
             this.Decode();
+            this.Merge(entry);
         }
+
         public void Decode()
         {
             _Textures = new List<MTexture>();
-            uint size = _Entry.Size;
-            uint start = _Entry.Offset;
+        }
+
+        public void Merge(Entry entry)
+        {
+            _Entry.Add(entry);
+
+            uint size = entry.Size;
+            uint start = entry.Offset;
             uint offset = 4;
             uint blocks = size / MTexture.LSize;
-            uint count = _Reader.ToUInt32(_Entry.Offset);
+            uint count = _Reader.ToUInt32(entry.Offset);
 
-#if DEBUG
-            Console.Write("Textures: ");
-            Console.Write(start);
-            Console.Write(" - ");
-            Console.Write(size);
-            Console.Write(" - ");
-            Console.Write(blocks);
-            Console.Write(" - ");
-            Console.Write(count);
-            Console.WriteLine("");
-#endif
             for (uint i = 0; i < count; i++)
             {
                 MTexture ln = new MTexture(_Reader, start, offset);

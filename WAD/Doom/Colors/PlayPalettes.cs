@@ -93,16 +93,6 @@ namespace WAD.Doom.Colors
             uint offset = 0;
             uint blocks = size / MPalette.LSize;
 
-#if DEBUG
-            Console.Write("Palettes: ");
-            Console.Write(start);
-            Console.Write(" - ");
-            Console.Write(size);
-            Console.Write(" - ");
-            Console.Write(blocks);
-            Console.WriteLine("");
-#endif
-
             for (uint i = 0; i < blocks; i++)
             {
                 MPalette ln = new MPalette(_Reader, start + offset, i);

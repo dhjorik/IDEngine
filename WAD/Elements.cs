@@ -9,7 +9,15 @@ namespace WAD
 {
     public interface IReader
     {
-
+        void Decode();
+        string ToString(uint offset, int size);
+        byte[] ToByteArray(uint offset, uint size);
+        sbyte ToInt8(uint offset);
+        byte ToUInt8(uint offset);
+        Int16 ToInt16(uint offset);
+        UInt16 ToUInt16(uint offset);
+        Int32 ToInt32(uint offset);
+        UInt32 ToUInt32(uint offset);
     }
 
     public interface IElement
@@ -44,7 +52,8 @@ namespace WAD
             this.Decode();
         }
 
-        public void Decode() { 
+        public void Decode()
+        {
             _Items = new List<Titem>();
 
             string name = "";
@@ -53,7 +62,7 @@ namespace WAD
             uint offset = 0;
             uint blocks = 0;
 
-            while(offset<size)
+            while (offset < size)
             {
                 Titem sdd = new Titem();
                 name = sdd.GetType().Name;
@@ -63,16 +72,6 @@ namespace WAD
                 blocks++;
                 offset += sdd.LSize();
             }
-
-#if DEBUG
-            Console.Write(": " + name);
-            Console.Write(start);
-            Console.Write(" - ");
-            Console.Write(size);
-            Console.Write(" - ");
-            Console.Write(blocks);
-            Console.WriteLine("");
-#endif
         }
 
         public List<Titem> Items { get => _Items; }

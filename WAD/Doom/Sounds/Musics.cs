@@ -41,14 +41,27 @@ namespace WAD.Doom.Sounds
             _Instruments = new ushort[_Length];
             for (uint i = 0; i < _Length; i++)
             {
-                _Instruments[i] = _Reader.ToUInt16(_Entry.Offset + 14 + i * 2);
+                _Instruments[i] = _Reader.ToUInt16(_Entry.Offset + 16 + i * 2);
             }
         }
 
         public override string ToString()
         {
-            string name = _Entry.Name;
-            return name.ToUpper();
+            StringBuilder sb=new StringBuilder();
+            
+            string name = _Entry.Name.ToUpper();
+            sb.Append(name);
+            sb.Append(": ");
+            sb.Append(_Sig);
+            sb.Append(" - ");
+            sb.Append(_Offset);
+            sb.Append(" - ");
+            sb.Append(_Length);
+            sb.Append(" - ");
+            sb.Append(_Entry.Size);
+            sb.Append(" - ");
+            sb.AppendLine(_NumInstruments.ToString());
+            return sb.ToString();
         }
     }
 
@@ -73,8 +86,6 @@ namespace WAD.Doom.Sounds
                     Entry entry = _Reader.Entries.LumpByName(lumpo_name);
                     MMusic mMusic = new MMusic(_Reader, entry);
                     _Musics.Add(mMusic);
-                    Console.Write(lumpo_name);
-                    Console.WriteLine(" found");
                 }
             }
         }

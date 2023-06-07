@@ -72,14 +72,6 @@ namespace WAD.Doom.Bitmaps
             name = string.Concat(PREFIX, SUFFIX_END);
             uint end_all = _Reader.Entries.LumpIndexByName(name);
 
-#if DEBUG
-            Console.Write("Flats: ");
-            Console.Write(start_all);
-            Console.Write(" - ");
-            Console.Write(end_all);
-            Console.WriteLine("");
-#endif
-
             for (uint i = start_all + 1; i < end_all; i++)
             {
                 Entry entry = _Reader.Entries.LumpByIndex(i);

@@ -17,6 +17,7 @@ using WAD.Doom.Levels;
 using WAD.Doom.Sounds;
 
 using NAudio.Wave;
+using System.Linq;
 
 namespace IDEngine
 {
@@ -32,13 +33,11 @@ namespace IDEngine
         uint current_palette = 0;
         uint current_map = 0;
 
-        // readonly string wad_path = @"C:\Developer\ProjectsB\Sharping\IDEngine";
-        // readonly string wad_path = @"C:\Pythons\projects\sharps\IDEngine";
-
         readonly string wad_file = @"WADs\DOOM.WAD";
-        //readonly string wad_file = @"WADs\DOOM2.WAD";
-        //readonly string wad_file = @"WADs\HERETIC.WAD";
-        //readonly string wad_file = @"WADs\HEXEN.WAD";
+        readonly string wad_file_D1 = @"WADs\DOOM.WAD";
+        readonly string wad_file_D2 = @"WADs\DOOM2.WAD";
+        readonly string wad_file_HT = @"WADs\HERETIC.WAD";
+        readonly string wad_file_HX = @"WADs\HEXEN.WAD";
 
         readonly WADReader rdr = null;
 
@@ -48,56 +47,73 @@ namespace IDEngine
         {
             InitializeComponent();
 
-            //Console.WriteLine(System.AppDomain.CurrentDomain.BaseDirectory);
-            //Console.WriteLine(System.Environment.CurrentDirectory);
-            //Console.WriteLine(System.IO.Directory.GetCurrentDirectory());
-            //Console.WriteLine(Environment.CurrentDirectory);
+            string file_path = "";
 
-            string file_path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, this.wad_file);
+            file_path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, this.wad_file_D1);
+            WADReader rdr1 = new WADReader(file_path);
 
-            rdr = new WADReader(file_path);
+            file_path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, this.wad_file_D2);
+            WADReader rdr2 = new WADReader(file_path);
 
-            lbl_screen.Content = rdr.Header.ToString();
-            list_screen.ItemsSource = rdr.Entries.ListToStrings();
+            file_path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, this.wad_file_HT);
+            WADReader rdrht = new WADReader(file_path);
 
-            //StringBuilder sb=new StringBuilder();
-            //foreach(Entry s in rdr.Entries.ListEntries)
-            //{
-            //    if (s.Name.StartsWith("DS"))
-            //    {
-            //        sb.Append(s.Name);
-            //        sb.Append(":");
-            //        sb.AppendLine(s.Index.ToString());
-            //    }
-            //    if (s.Name.StartsWith("DP"))
-            //    {
-            //        sb.Append(s.Name);
-            //        sb.Append(":");
-            //        sb.AppendLine(s.Index.ToString());
-            //    }
-            //    if (s.Name.StartsWith("D_"))
-            //    {
-            //        sb.Append(s.Name);
-            //        sb.Append(":");
-            //        sb.AppendLine(s.Index.ToString());
-            //    }
-            //}
-            //Console.WriteLine(sb.ToString());
-            //lbl_log.Content = sb.ToString();
+            List<string> commons = new List<string>();
+            List<string> rcommons = new List<string>();
+            List<string> onlyD1 = new List<string>(rdr1.Entries.ListNames);
+            List<string> onlyD2 = new List<string>(rdr2.Entries.ListNames);
 
-            list_maps.ItemsSource = rdr.Maps.names;
-            list_flats.ItemsSource = rdr.Images.Flats.Flats;
-            list_textures.ItemsSource = rdr.Images.Textures.Textures;
-            list_patches.ItemsSource = rdr.Images.Patches.Patches;
-            list_sprites.ItemsSource = rdr.Images.Sprites.Sprites;
-            list_sounds.ItemsSource = rdr.Audio.Samples.Samples;
+            int cnt1 = onlyD1.Count;
+            int cnt2 = onlyD2.Count;
+
+            var dub1 = onlyD1.GroupBy(x => x).ToDictionary(x => x.Key, y => y.Count());
+            var dub2 = onlyD2.GroupBy(x => x).ToDictionary(x => x.Key, y => y.Count());
+
+            foreach (string idx in onlyD1)
+            {
+                if (onlyD2.Contains(idx))
+                {
+                    commons.Add(idx);
+                }
+            }
+            foreach (string idx in onlyD2)
+            {
+                if (onlyD1.Contains(idx))
+                {
+                    rcommons.Add(idx);
+                }
+            }
+
+            foreach (string idx in rcommons)
+            {
+                onlyD1.Remove(idx);
+                onlyD2.Remove(idx);
+            }
+
+            // Cut execution here to avoid errors
+            return;
+
+            //lbl_screen.Content = rdr.Header.ToString();
+            //list_screen.ItemsSource = rdr.Entries.ListToStrings();
+
+            //list_maps.ItemsSource = rdr.Maps.names;
+            //list_flats.ItemsSource = rdr.Images.Flats.Flats;
+            //list_textures.ItemsSource = rdr.Images.Textures.Textures;
+            //list_patches.ItemsSource = rdr.Images.Patches.Patches;
+            //list_sprites.ItemsSource = rdr.Images.Sprites.Sprites;
+            //list_sounds.ItemsSource = rdr.Audio.Samples.Samples;
+
+            Closing += MainWindow_Closing;
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            waveout.Dispose();
         }
 
         private void list_maps_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             string sel_value = list_maps.SelectedValue as string;
-            Console.Write("Maps name: ");
-            Console.WriteLine(sel_value);
 
             Map map = rdr.Maps.MapByName(sel_value);
             this.render(map);
@@ -159,7 +175,7 @@ namespace IDEngine
 
             byte[] pixels = new byte[sel_value.Length * 3];
 
-            foreach(MTexPatch texptc in sel_value.Patches)
+            foreach (MTexPatch texptc in sel_value.Patches)
             {
                 MPatch Patch = texptc.Patch;
                 MPicture pct = Patch.Picture;
@@ -169,15 +185,21 @@ namespace IDEngine
                     while (col != null)
                     {
                         int y = (int)col.TopDelta;
-                        int offset = (x + y * pct.Width) * 3;
+                        int dx = x + texptc.OriginX;
+                        int dy = y + texptc.OriginY;
+                        int offset = (dx + dy * sel_value.Width) * 3;
 
                         for (int j = 0; j < col.Length; j++)
                         {
-                            byte b = col.Data[j];
-                            MColor mcol = colors[b];
-                            pixels[offset + (j * pct.Width * 3)] = mcol.R;
-                            pixels[offset + (j * pct.Width * 3) + 1] = mcol.G;
-                            pixels[offset + (j * pct.Width * 3) + 2] = mcol.B;
+                            int ry = dy + j;
+                            if ((dx >= 0) & (dx < sel_value.Width) & (ry >= 0) & (ry < sel_value.Height))
+                            {
+                                byte b = col.Data[j];
+                                MColor mcol = colors[b];
+                                pixels[offset + (j * sel_value.Width * 3)] = mcol.R;
+                                pixels[offset + (j * sel_value.Width * 3) + 1] = mcol.G;
+                                pixels[offset + (j * sel_value.Width * 3) + 2] = mcol.B;
+                            }
                         }
                         col = col.Next;
                     }
@@ -411,9 +433,6 @@ namespace IDEngine
 
             Canvas.SetLeft(circle, x - radius);
             Canvas.SetTop(circle, y - radius);
-
-            //circle.SetValue(Canvas.LeftProperty, x - radius);
-            //circle.SetValue(Canvas.TopProperty, y - radius);
         }
 
         public static void line(double ax, double ay, double bx, double by, Canvas cv, Brush color = null)

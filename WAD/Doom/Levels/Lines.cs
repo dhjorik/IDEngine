@@ -71,16 +71,6 @@ namespace WAD.Doom.Levels
             uint offset = 0;
             uint blocks = size / MLine.LSize;
 
-#if DEBUG
-            Console.Write("Lines: ");
-            Console.Write(start);
-            Console.Write(" - ");
-            Console.Write(size);
-            Console.Write(" - ");
-            Console.Write(blocks);
-            Console.WriteLine("");
-#endif
-
             for (uint i = 0; i < blocks; i++)
             {
                 MLine ln = new MLine(_Reader, start + offset, i);

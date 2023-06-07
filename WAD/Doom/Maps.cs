@@ -147,12 +147,6 @@ namespace WAD.Doom
                         bool found = _Reader.Entries.HasLumpByName(name);
                         if (found)
                         {
-#if DEBUG
-                            Console.Write("Map: ");
-                            Console.Write(name);
-                            Console.Write(" - ");
-                            Console.WriteLine("found");
-#endif
                             Map value = new Map(_Reader, level, episode);
                             _Maps.Add(name, value);
                         }
@@ -168,12 +162,6 @@ namespace WAD.Doom
                     bool found = _Reader.Entries.HasLumpByName(name);
                     if (found)
                     {
-#if DEBUG
-                        Console.Write("Map: ");
-                        Console.Write(name);
-                        Console.Write(" - ");
-                        Console.WriteLine("found");
-#endif
                         Map value = new Map(_Reader, level, 0);
                         _Maps.Add(name, value);
                     }

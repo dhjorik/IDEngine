@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace WAD.Doom.Bitmaps
 {
@@ -15,9 +16,10 @@ namespace WAD.Doom.Bitmaps
         private string _Name = "";
         private MPicture _Picture = null;
 
-        public MPatch(WADReader reader, uint index)
+        public MPatch(WADReader reader, uint start, uint index)
         {
             _Reader = reader;
+            _Start = start;
             _Index = index;
 
             this.Decode();
@@ -25,12 +27,13 @@ namespace WAD.Doom.Bitmaps
 
         public void Decode()
         {
-            Entry entry = _Reader.Entries.LumpByIndex(this._Index);
+            Entry entry = _Reader.Entries.LumpByIndex(_Start);
             _Name = entry.Name;
             _Picture = new MPicture(_Reader, _Name);
         }
 
         public string Name { get { return _Name; } }
+        public uint Index { get { return _Index; } }
         public MPicture Picture { get { return _Picture; } }
         
         public override string ToString()
@@ -67,20 +70,12 @@ namespace WAD.Doom.Bitmaps
             name = string.Concat(PREFIX, SUFFIX_END);
             uint end_all = _Reader.Entries.LumpIndexByName(name);
 
-#if DEBUG
-            Console.Write("Patches: ");
-            Console.Write(start_all);
-            Console.Write(" - ");
-            Console.Write(end_all);
-            Console.WriteLine("");
-#endif
-
             for (uint i = start_all + 1; i < end_all; i++)
             {
                 entry = _Reader.Entries.LumpByIndex(i);
                 if (entry.Size > 0)
                 {
-                    MPatch ln = new MPatch(_Reader, i);
+                    MPatch ln = new MPatch(_Reader, i, i - start_all);
                     _Patches.Add(ln);
                 }
             }
@@ -96,7 +91,7 @@ namespace WAD.Doom.Bitmaps
 
         public MPatch PatchByIndex(int index)
         {
-            MPatch value = _Patches[index];
+            MPatch value = _Patches.Find(x => x.Index == index);
             return value;
         }
     }

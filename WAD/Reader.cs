@@ -11,7 +11,7 @@ using WAD.Doom.Colors;
 
 namespace WAD
 {
-    public class WADReader : IElements, IReader
+    public class WADReader : IReader
     {
         public string WAD_File { get; set; }
         public byte[] WAD_buffer { get; set; }
@@ -93,17 +93,6 @@ namespace WAD
                 byte[] bytes = new byte[block_read];
                 int readed = source.Read(bytes, start, block_read);
 
-#if DEBUG
-                Console.Write("Start: ");
-                Console.Write(start);
-                Console.Write(" - ");
-                Console.Write(remains);
-                Console.Write(" - ");
-                Console.Write(block_read);
-                Console.Write(" - ");
-                Console.WriteLine(readed);
-#endif
-
                 while (readed > 0)
                 {
                     bytes.CopyTo(this.WAD_buffer, start);
@@ -116,18 +105,6 @@ namespace WAD
                         bytes = new byte[block_read];
                     }
                     readed = source.Read(bytes, 0, block_read);
-
-#if DEBUG
-                    Console.Write("Iter {0}: ", counts);
-                    Console.Write(start);
-                    Console.Write(" - ");
-                    Console.Write(remains);
-                    Console.Write(" - ");
-                    Console.Write(block_read);
-                    Console.Write(" - ");
-                    Console.WriteLine(readed);
-#endif
-
                 }
             }
         }
@@ -137,10 +114,10 @@ namespace WAD
             this.Bufferize();
             this.Read_Header();
             this.Read_Entries();
-            this.Read_Maps();
-            this.Read_Colors();
-            this.Read_Images();
-            this.Read_Audio();
+            //this.Read_Maps();
+            //this.Read_Colors();
+            //this.Read_Images();
+            //this.Read_Audio();
         }
 
         public string ToString(uint offset, int size)
@@ -148,10 +125,10 @@ namespace WAD
             byte[] buf = new byte[size];
             Array.Copy(this.WAD_buffer, offset, buf, 0, size);
             string str_val = Encoding.UTF8.GetString(buf);
-            string ret_val = str_val;
+            string ret_val = str_val.ToUpper();
             if (str_val.IndexOf("\0") >= 0)
             {
-                ret_val = str_val.Substring(0, str_val.IndexOf("\0"));
+                ret_val = str_val.Substring(0, str_val.IndexOf("\0")).ToUpper();
             }
             return ret_val;
         }

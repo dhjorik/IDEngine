@@ -71,8 +71,6 @@ namespace WAD.Doom.Sounds
                     Entry entry = _Reader.Entries.LumpByName(lumpo_name);
                     MSample mSample = new MSample(_Reader, entry);
                     _Samples.Add(mSample);
-                    Console.Write(lumpo_name);
-                    Console.WriteLine(" found");
                 }
             }
         }

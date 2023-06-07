@@ -31,7 +31,7 @@ namespace WAD.Doom.Bitmaps
         public static uint LSize => 8;
 
         public string Name { get => _Name; }
-
+        public uint Index { get => _Index; }
     }
 
     public class MWalls : IElements
@@ -55,17 +55,6 @@ namespace WAD.Doom.Bitmaps
             uint blocks = size / MWall.LSize;
             uint count = _Reader.ToUInt32(_Entry.Offset);
 
-#if DEBUG
-            Console.Write("Walls: ");
-            Console.Write(start);
-            Console.Write(" - ");
-            Console.Write(size);
-            Console.Write(" - ");
-            Console.Write(blocks);
-            Console.Write(" - ");
-            Console.Write(count);
-            Console.WriteLine("");
-#endif
             for (uint i = 0; i < count; i++)
             {
                 MWall ln = new MWall(_Reader, start + offset, i);
@@ -75,5 +64,11 @@ namespace WAD.Doom.Bitmaps
         }
 
         public List<MWall> Walls { get => _Walls; }
+
+        public MWall PatchByIndex(int index)
+        {
+            MWall value = _Walls.Find(x => x.Index == index);
+            return value;
+        }
     }
 }

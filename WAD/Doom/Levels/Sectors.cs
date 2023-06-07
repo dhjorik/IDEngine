@@ -71,16 +71,6 @@ namespace WAD.Doom.Levels
             uint offset = 0;
             uint blocks = size / MSector.LSize;
 
-#if DEBUG
-            Console.Write("Sectors: ");
-            Console.Write(start);
-            Console.Write(" - ");
-            Console.Write(size);
-            Console.Write(" - ");
-            Console.Write(blocks);
-            Console.WriteLine("");
-#endif
-
             for (uint i = 0; i < blocks; i++)
             {
                 MSector ln = new MSector(_Reader, start + offset, i);

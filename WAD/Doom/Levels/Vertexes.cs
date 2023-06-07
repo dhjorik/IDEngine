@@ -112,16 +112,6 @@ namespace WAD.Doom.Levels
             uint offset = 0;
             uint blocks = size / MVertex.LSize;
 
-#if DEBUG
-            Console.Write("Vertexes: ");
-            Console.Write(start);
-            Console.Write(" - ");
-            Console.Write(size);
-            Console.Write(" - ");
-            Console.Write(blocks);
-            Console.WriteLine("");
-#endif
-
             for (uint i = 0; i < blocks; i++)
             {
                 MVertex v = new MVertex(_Reader, start + offset, i);

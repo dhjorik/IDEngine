@@ -68,16 +68,6 @@ namespace WAD.Doom.Levels
             uint offset = 0;
             uint blocks = size / MSeg.LSize;
 
-#if DEBUG
-            Console.Write("Segs: ");
-            Console.Write(start);
-            Console.Write(" - ");
-            Console.Write(size);
-            Console.Write(" - ");
-            Console.Write(blocks);
-            Console.WriteLine("");
-#endif
-
             for (uint i = 0; i < blocks; i++)
             {
                 MSeg sdd = new MSeg(_Reader, start + offset, i);

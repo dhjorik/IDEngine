@@ -60,16 +60,6 @@ namespace WAD.Doom.Colors
             uint offset = 0;
             uint blocks = size / MColorMap.LSize;
 
-#if DEBUG
-            Console.Write("ColorMaps: ");
-            Console.Write(start);
-            Console.Write(" - ");
-            Console.Write(size);
-            Console.Write(" - ");
-            Console.Write(blocks);
-            Console.WriteLine("");
-#endif
-
             for (uint i = 0; i < blocks; i++)
             {
                 MColorMap ln = new MColorMap(_Reader, start + offset, i);

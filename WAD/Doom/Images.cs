@@ -48,6 +48,21 @@ namespace WAD.Doom
                 _Textures = new MTextures(_Reader, entry);
             }
 
+            lumpName = "TEXTURE2";
+            found = _Reader.Entries.HasLumpByName(lumpName);
+            if (found)
+            {
+                Entry entry = _Reader.Entries.LumpByName(lumpName);
+                if (_Textures == null)
+                {
+                    _Textures = new MTextures(_Reader, entry);
+                }
+                else
+                {
+                    _Textures.Merge(entry);
+                }
+            }
+
             _Flats = new MFlats(_Reader);
             _Sprites = new MSprites(_Reader);
             _Patches = new MPatches(_Reader);

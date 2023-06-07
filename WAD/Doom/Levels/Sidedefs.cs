@@ -68,16 +68,6 @@ namespace WAD.Doom.Levels
             uint offset = 0;
             uint blocks = size / MSidedef.LSize;
 
-#if DEBUG
-            Console.Write("Sidedefs: ");
-            Console.Write(start);
-            Console.Write(" - ");
-            Console.Write(size);
-            Console.Write(" - ");
-            Console.Write(blocks);
-            Console.WriteLine("");
-#endif
-
             for (uint i = 0; i < blocks; i++)
             {
                 MSidedef sdd = new MSidedef(_Reader, start + offset, i);
